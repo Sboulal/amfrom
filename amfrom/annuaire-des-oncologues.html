@@ -7,8 +7,8 @@
     </title>
     <meta
       name="description"
-      content="Ce site est pour nous une plateforme d’échange et de communication et démontre notre volonté affirmée d'entreprendre, notre envie renouvelée d'innover et de poursuivre notre approche et mission de proximité.
-  Ce site entend améliorer la communication sur l’ensemble des activités de notre association qu'il s'agisse de la formation continue, de conférences, de séminaires, workshops, symposiums, congrès nationaux et internationaux, ou de la recherche en oncologie."
+      content="Ce site est pour nous une plateforme d'échange et de communication et démontre notre volonté affirmée d'entreprendre, notre envie renouvelée d'innover et de poursuivre notre approche et mission de proximité.
+  Ce site entend améliorer la communication sur l'ensemble des activités de notre association qu'il s'agisse de la formation continue, de conférences, de séminaires, workshops, symposiums, congrès nationaux et internationaux, ou de la recherche en oncologie."
     />
     <meta
       name="keywords"
@@ -21,7 +21,100 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      /* Styles spécifiques pour la carte */
+      .map-container {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ccc;
+        margin: 20px 0;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+      
+      @media (min-width: 768px) {
+        .map-container {
+          flex-direction: row;
+          height: 500px;
+        }
+      }
+      
+      #map {
+        flex: 1;
+        height: 400px;
+      }
+      
+      @media (min-width: 768px) {
+        #map {
+          height: 100%;
+        }
+      }
+      
+      .info-panel {
+        width: 100%;
+        height: 300px;
+        overflow-y: auto;
+        border-top: 1px solid #ccc;
+        background-color: #f8f8f8;
+      }
+      
+      @media (min-width: 768px) {
+        .info-panel {
+          width: 300px;
+          height: 100%;
+          border-top: none;
+          border-left: 1px solid #ccc;
+        }
+      }
+      
+      .location-selector {
+        padding: 10px;
+        border-bottom: 1px solid #e6e6e6;
+      }
+      
+      .location-selector select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      
+      .specialist-info {
+        padding: 10px 15px;
+        border-bottom: 1px solid #e6e6e6;
+      }
+      
+      .specialist-info h3 {
+        margin: 0 0 5px 0;
+        font-size: 16px;
+        color: #333;
+      }
+      
+      .specialist-info p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #555;
+      }
+      
+      .specialist-info strong {
+        font-weight: normal;
+        color: #777;
+      }
+      
+      .titre-annuaire {
+        text-align: center;
+        margin: 30px 0;
+        color: #007a3d; /* Couleur verte assortie au thème du site */
+      }
+      
+      .description-annuaire {
+        text-align: center;
+        margin: 20px 0;
+        padding: 0 20px;
+        line-height: 1.6;
+      }
+    </style>
   </head>
   <body>
   <div class="container-p">
@@ -306,61 +399,52 @@
       </div>
 <div class="main-test">
   <div class="titre-contact">
-    <h2>Contactez-nous</h2>
+    <h2>Annuaire des Oncologues</h2>
   </div>
   <div class="page-test">
-    <div class="flex-class">
-      <div class="div-labbel">
-        <div class="labell">
-          <label for="nom">Nom*</label>
+    
+   
+    
+    
+    <div class="map-container">
+      <div id="map"></div>
+      <div class="info-panel">
+        <div class="location-selector">
+          <select id="city-selector">
+            <option value="all">Toutes les villes</option>
+            <option value="casablanca" selected>Casablanca</option>
+            <option value="rabat">Rabat</option>
+            <option value="tanger">Tanger</option>
+            <option value="marrakech">Marrakech</option>
+            <option value="fes">Fès</option>
+            <option value="agadir">Agadir</option>
+            <option value="oujda">Oujda</option>
+          </select>
         </div>
-        <div class="input">
-          <input type="text" name="nom" id="nom_id" />
+        <div class="specialist-info">
+          <h3>Nom : Dr. Majid Noura</h3>
+          <p><strong>Organisation :</strong> Centre d'Oncologie de Casablanca</p>
+          <p><strong>Position :</strong> Oncologue Spécialiste</p>
+        </div>
+        <div class="specialist-info">
+          <h3>Nom : Dr. Ghanem Samia</h3>
+          <p><strong>Organisation :</strong> Clinique Spécialisée Casablanca</p>
+          <p><strong>Position :</strong> Oncologue Spécialiste</p>
+        </div>
+        <div class="specialist-info">
+          <h3>Nom : Dr. Bourhafour Mouna</h3>
+          <p><strong>Organisation :</strong> Institut National d'Oncologie</p>
+          <p><strong>Position :</strong> Oncologue Médicale</p>
+        </div>
+        <div class="specialist-info">
+          <h3>Nom : Dr. El Yacoubi Hind</h3>
+          <p><strong>Organisation :</strong> Centre Hospitalier Universitaire</p>
+          <p><strong>Position :</strong> Oncologue Radiothérapeute</p>
         </div>
       </div>
-      <div class="div-labbel">
-        <div class="labell">
-          <label for="email">email*</label>
-        </div>
-        <div class="input">
-          <input type="text" name="email" id="email_id" />
-        </div>
-      </div>
-      <div class="div-labbel">
-        <div class="labell">
-          <label for="telephone">Telephone*</label>
-        </div>
-        <div class="input">
-          <input type="text" name="Telephone" id="Telephone_id" />
-        </div>
-      
-</div>
-<div class="div-labbel">
-  <div class="labell">
-    <label for="Message">Message*</label>
+    </div>
+
   </div>
-  <div class="input">
-    <input type="text" name="Message" id="Message_id" />
-  </div>
-
-
-
-</div>
-<div class="div-labbel" style="display: flex; flex-direction: row-reverse;gap: 20px;">
-  <div class="btn-env"style="color: green;">
-    <button class="btn" id="btn_id">Envoyer</button>
-  </div>
-  <div class="chap" style="color: green;">
-    <p>
-      * Champs obligatoires
-    </p>
-  </div>
-</div>
-</div>
-</div>
- 
-
-
 </div>
 
 <footer class="main-footer">
@@ -418,5 +502,135 @@
 
    </footer>
  <script src="acceuill.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+ <script>
+    // Fonction pour le menu mobile
+    function myFunction() {
+      var x = document.getElementById("myLinks");
+      if (x.style.display === "flex") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "flex";
+      }
+    }
+    
+    // Initialisation de la carte
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialisation de la carte
+      const map = L.map('map').setView([33.5731, -7.5898], 10); // Centré sur Casablanca par défaut
+      
+      // Ajout de la couche de carte
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      
+      // Données des oncologues avec leurs coordonnées
+      const specialistsData = [
+        { name: "Dr. Majid Noura", position: "Oncologue Spécialiste", organization: "Centre d'Oncologie de Casablanca", lat: 33.5731, lng: -7.5898, city: "casablanca" },
+        { name: "Dr. Samira Hakim", position: "Oncologue Médical", organization: "Clinique Al Farabi", lat: 33.5920, lng: -7.6226, city: "casablanca" },
+        { name: "Dr. Mohammed Benani", position: "Radiothérapeute", organization: "CHU Ibn Rochd", lat: 33.5829, lng: -7.6136, city: "casablanca" },
+        { name: "Dr. Ghanem Samia", position: "Oncologue Spécialiste", organization: "Clinique Spécialisée", lat: 33.9716, lng: -6.8498, city: "rabat" },
+        { name: "Dr. Karima Ouazzani", position: "Oncologue Médical", organization: "Institut National d'Oncologie", lat: 33.9823, lng: -6.8554, city: "rabat" },
+        { name: "Dr. Bourhafour Mouna", position: "Oncologue Médicale", organization: "Institut National d'Oncologie", lat: 31.6295, lng: -8.0086, city: "marrakech" },
+        { name: "Dr. Ahmed Belkouch", position: "Radiothérapeute", organization: "Centre d'Oncologie", lat: 31.6420, lng: -8.0124, city: "marrakech" },
+        { name: "Dr. El Yacoubi Hind", position: "Oncologue Radiothérapeute", organization: "Centre Hospitalier Universitaire", lat: 34.0209, lng: -5.0078, city: "fes" },
+        { name: "Dr. Nabil Ismaili", position: "Oncologue Médical", organization: "Centre d'Oncologie Hassan II", lat: 34.0301, lng: -5.0134, city: "fes" },
+        { name: "Dr. Ahmed Kabbaj", position: "Oncologue Médical", organization: "Clinique Oncologique du Nord", lat: 35.7595, lng: -5.8340, city: "tanger" },
+        { name: "Dr. Nadia El Mansouri", position: "Oncologue Spécialiste", organization: "Centre Ibn Batouta", lat: 30.4278, lng: -9.5981, city: "agadir" },
+        { name: "Dr. Karim Benjelloun", position: "Oncologue Radiothérapeute", organization: "Centre d'Oncologie Oriental", lat: 34.6725, lng: -1.9006, city: "oujda" }
+      ];
+      
+      // Création d'un objet pour stocker les marqueurs par ville
+      const markersByCity = {};
+      
+      // Création des marqueurs et des popups
+      specialistsData.forEach(specialist => {
+        const marker = L.marker([specialist.lat, specialist.lng])
+          .bindPopup(`<b>${specialist.name}</b><br>
+                      <strong>Organisation:</strong> ${specialist.organization}<br>
+                      <strong>Position:</strong> ${specialist.position}`);
+        
+        // Organiser les marqueurs par ville
+        if (!markersByCity[specialist.city]) {
+          markersByCity[specialist.city] = [];
+        }
+        markersByCity[specialist.city].push(marker);
+        
+        // Ajouter à la carte par défaut si c'est à Casablanca
+        if (specialist.city === "casablanca") {
+          marker.addTo(map);
+        }
+      });
+      
+      // Mettre à jour le panneau d'information en fonction de la ville sélectionnée
+      function updateInfoPanel(city) {
+        // Vider le panneau d'information sauf le sélecteur de ville
+        const infoPanel = document.querySelector('.info-panel');
+        const locationSelector = infoPanel.querySelector('.location-selector');
+        infoPanel.innerHTML = '';
+        infoPanel.appendChild(locationSelector);
+        
+        // Filtrer les spécialistes par ville ou afficher tous
+        const filteredSpecialists = city === 'all' 
+          ? specialistsData 
+          : specialistsData.filter(spec => spec.city === city);
+        
+        // Ajouter les informations des spécialistes
+        filteredSpecialists.forEach(specialist => {
+          const specialistDiv = document.createElement('div');
+          specialistDiv.className = 'specialist-info';
+          specialistDiv.innerHTML = `
+            <h3>Nom : ${specialist.name}</h3>
+            <p><strong>Organisation :</strong> ${specialist.organization}</p>
+            <p><strong>Position :</strong> ${specialist.position}</p>
+          `;
+          infoPanel.appendChild(specialistDiv);
+        });
+      }
+      
+      // Gestion du changement de ville
+      document.getElementById('city-selector').addEventListener('change', function(e) {
+        const selectedCity = e.target.value;
+        
+        // Supprimer tous les marqueurs de la carte
+        Object.values(markersByCity).flat().forEach(marker => {
+          map.removeLayer(marker);
+        });
+        
+        // Ajouter les marqueurs de la ville sélectionnée ou tous les marqueurs
+        if (selectedCity === 'all') {
+          Object.values(markersByCity).flat().forEach(marker => {
+            marker.addTo(map);
+          });
+          map.setView([31.7917, -7.0926], 6); // Vue centrée sur le Maroc
+        } else {
+          markersByCity[selectedCity].forEach(marker => {
+            marker.addTo(map);
+          });
+          
+          // Centrer sur la ville sélectionnée
+          const cityCoordinates = {
+            'casablanca': [33.5731, -7.5898],
+            'rabat': [33.9716, -6.8498],
+            'tanger': [35.7595, -5.8340],
+            'marrakech': [31.6295, -8.0086],
+            'fes': [34.0209, -5.0078],
+            'agadir': [30.4278, -9.5981],
+            'oujda': [34.6725, -1.9006]
+          };
+          
+          if (cityCoordinates[selectedCity]) {
+            map.setView(cityCoordinates[selectedCity], 13);
+          }
+        }
+        
+        // Mettre à jour le panneau d'information
+        updateInfoPanel(selectedCity);
+      });
+      
+      // Initialisation avec Casablanca
+      updateInfoPanel('casablanca');
+    });
+ </script>
 </body>
 </html>
