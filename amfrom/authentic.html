@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication Button</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            text-align: center;
+            width: 300px;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .auth-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            text-align: left;
+            display: none;
+        }
+        
+        .auth-form h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        .submit-btn {
+            background-color: green;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+        }
+        .title-fiche
+        {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .title-fiche h2
+        {
+            font-family: "OptimaLtNormal";
+            font-size: 1.1rem;
+            color: green;
+            text-transform: uppercase;
+        }
+        .title-fiche p
+        {
+            font-family: "OptimaLtNormal";
+            font-size: 1.1rem;
+            color: #534e4e;
+        }
+        .mot-de-passe-oublié
+        {
+            text-align: center;
+            margin-top: 10px;
+            color: #534e4e;
+            margin-left: 60px;
+            font-size: 9px;
+        }
+        .close-btn button
+        {
+            text-align: center;
+            /* margin-top: -10px; */
+            color: #534e4e;
+            /* margin-left: 80px; */
+            background-color: white;
+        }
+        .close-btn button:hover
+        {
+            color: #ddd;
+        }
+        .close-btn
+        {
+            margin-top: -15px;
+            margin-left: 220px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button id="authButton">SALMA</button>
+        
+        <div id="authForm" class="auth-form">
+            <div class="close-btn">
+                <button id="closeAuthForm">X</button>
+            </div>
+            <!-- <h2>Login</h2> -->
+             <div class="title-fiche">
+             <h2>Guide des protocoles therapeutiques en oncologie</h2>
+             <p>Accès strictement reservé aux professionnels de santé et membres de l’AMFROM</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <!-- <label for="username">Username</label> -->
+                    <input type="text" id="username" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <!-- <label for="password">Password</label> -->
+                    <input type="password" id="password" placeholder="Mot de passe" required>
+                </div>
+                <button type="submit" class="submit-btn">Se connecter</button>
+                <a href="" class="mot-de-passe-oublié">Mot de passe oublié?</a>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const authButton = document.getElementById('authButton');
+            const authForm = document.getElementById('authForm');
+            const loginForm = document.getElementById('loginForm');
+            const closeAuthForm = document.getElementById('closeAuthForm');
+            
+            // Toggle authentication form when button is clicked
+            authButton.addEventListener('click', function() {
+                if (authForm.style.display === 'block') {
+                    authForm.style.display = 'none';
+                    authButton.textContent = 'Show Authentication';
+                } else {
+                    authForm.style.display = 'block';
+                    authButton.textContent = 'Hide Authentication';
+                }
+                closeAuthForm.addEventListener('click', function() {
+                    authForm.style.display = 'none';
+                    authButton.textContent = 'Show Authentication';
+                });
+            });
+            
+            // Handle form submission
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                alert(`Authentication attempt with username: ${username}`);
+                
+                // Clear the form
+                loginForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>
