@@ -188,11 +188,11 @@ body {
   
   .titre-contact {
     margin-bottom: 30px;
-    text-align: center;
+    /* text-align: center; */
   }
   
   .titre-contact h2 {
-    color: #006400;
+    color: #333;
     font-size: 28px;
     position: relative;
     padding-bottom: 10px;
@@ -230,7 +230,8 @@ body {
   
   .labell label {
     font-weight: 600;
-    color: #333;
+    font-family: "OptimaLtNormal";
+    color: #484848;
   }
   
   .input input {
