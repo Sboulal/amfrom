@@ -74,6 +74,7 @@ body {
   /* Navigation Styles */
   nav {
     position: relative;
+    margin-bottom: 10px; 
   }
   
   .navbar {
@@ -179,16 +180,8 @@ body {
   .active, .dot:hover {
     background-color: #008000;
   }
-  
-  /* Main Content Styles */
-  /* .main-test {
-    padding: 30px 20px;
-    background-color: #fff;
-  } */
-  
   .titre-contact {
     margin-bottom: 30px;
-    /* text-align: center; */
   }
   
   .titre-contact h2 {
@@ -197,23 +190,6 @@ body {
     position: relative;
     padding-bottom: 10px;
   }
-  
-  .titre-contact h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background-color: #008000;
-  }
-  
-  /* .page-test {
-    max-width: 800px;
-    margin: 0 auto;
-  } */
-  
   .flex-class {
     display: flex;
     flex-direction: column;
@@ -221,7 +197,11 @@ body {
   }
   
   .div-labbel {
-    width: 100%;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    
+    /* width: 100%; */
   }
   
   .labell {
@@ -237,9 +217,11 @@ body {
   .input input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
     font-size: 16px;
+    box-sizing: border-box;
+    margin-left: 70px;
+    border-radius:0;
+    border-color:#ddd;
   }
   
   #Message_id {
