@@ -17,30 +17,7 @@ document.querySelectorAll('li > a.menu-arrow').forEach(link => {
 });
 
 
-// document.addEventListener('DOMContentLoaded', function() {
- 
-//   const titres = document.querySelectorAll('.titre-li');
-  
- 
-//   titres.forEach(function(titre) {
-//     titre.addEventListener('click', function() {
-     
-//       const parentLi = this.parentElement;
-//       const isActive = parentLi.classList.contains('active');
-      
-     
-//       const allLi = document.querySelectorAll('li');
-//       allLi.forEach(function(li) {
-//         li.classList.remove('active');
-//       });
-      
-     
-//       if (!isActive) {
-//         parentLi.classList.add('active');
-//       }
-//     });
-//   });
-// });
+
 
 document.addEventListener('DOMContentLoaded', function() {
   // Sélectionner tous les éléments avec la classe 'titre-li'
