@@ -180,136 +180,161 @@ body {
   .active, .dot:hover {
     background-color: #008000;
   }
-  .titre-contact {
-    margin-bottom: 30px;
+  /* General form styling */
+.flex-class {
+  max-width: 100%px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  /* background-color: #f9f9f9; */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Field container styling */
+.div-labbel {
+  margin-bottom: 18px;
+}
+
+/* Label styling */
+.labell {
+  margin-bottom: 5px;
+}
+
+.labell label {
+  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+  display: block;
+}
+
+/* Input styling */
+.input input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.input input:focus {
+  border-color: #4a90e2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+/* Message input can be taller */
+#Message_id {
+  height: 100px;
+}
+
+/* Button styling */
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+/* Required fields text */
+.chap p {
+  margin: 0;
+  font-size: 15px;
+  color: #45a049;
+  padding-top: 15px;
+}
+
+/* Footer section with button and required fields text */
+.div-labbel:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 480px) {
+  .div-labbel:last-child {
+    flex-direction: column-reverse;
+    align-items: flex-start;
   }
   
-  .titre-contact h2 {
-    color: #333;
-    font-size: 28px;
-    position: relative;
-    padding-bottom: 10px;
-  }
-  .flex-class {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .div-labbel {
-    display: flex;
-    flex-direction: row;
-    /* justify-content: space-between; */
-    
-    /* width: 100%; */
-  }
-  
-  .labell {
-    margin-bottom: 8px;
-  }
-  
-  .labell label {
-    font-weight: 600;
-    font-family: "OptimaLtNormal";
-    color: #484848;
-  }
-  
-  .input input {
+  .btn-env {
+    margin-top: 15px;
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    box-sizing: border-box;
-    margin-left: 70px;
-    border-radius:0;
-    border-color:#ddd;
-  }
-  
-  #Message_id {
-    height: 150px;
   }
   
   .btn {
-    background-color: #008000;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    width: 100%;
   }
-  
-  .btn:hover {
-    background-color: #006400;
-  }
-  
-  .chap p {
-    font-size: 14px;
-    color: #008000;
-  }
+}
   
   /* Footer Styles */
   .main-footer {
-    background-color: #eee;
-    color: green;
-    padding: 40px 20px 10px;
+    background-image: url(images/footer-bg.jpg);
+    color: white;
+    padding: 30px 0 0 0;
+    
   }
   
+  
+  
   .footer-test {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     max-width: 1280px;
     margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 20px;
+   
   }
   
   .logo-footer {
-    width: 200px;
-    margin-bottom: 30px;
+    flex: 0 0 25%;
+    margin-bottom: 20px;
   }
   
   .logo-footer img {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
+    width: 100px;
     margin-bottom: 15px;
   }
   
   .slogan-footer p {
-    font-size: 14px;
+    font-size: 1.2rem;
     margin-bottom: 5px;
+    color: #363636;
   }
   
   .footer-links {
+    flex: 0 0 70%;
+    margin-left: auto;
     display: flex;
     flex-wrap: wrap;
-    gap: 30px;
   }
   
   .lien-links {
-    width: 200px;
-    margin-bottom: 30px;
+    flex: 0 0 30%;
+    margin-bottom: 20px;
   }
   
   .lien-links h3 {
     margin-bottom: 15px;
-    font-size: 18px;
-    position: relative;
-    padding-bottom: 10px;
-  }
-  
-  .lien-links h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 2px;
-
+    color: green;
+    font-size: 1.5rem;
   }
   
   .social {
-    list-style-type: none;
+    list-style: none;
   }
   
   .social li {
@@ -317,80 +342,63 @@ body {
   }
   
   .social a {
-    color: black;
-    text-decoration: none;
-    font-size: 14px;
     display: flex;
     align-items: center;
-  }
-  
-  .social a:hover {
-    text-decoration: underline;
+    color: #363636;
+    text-decoration: none;
+    font-size: 1.2rem;
   }
   
   .social img {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     margin-right: 10px;
   }
   
   .item-name {
-    width: 300px;
-    margin-bottom: 30px;
+    flex: 0 0 35%;
   }
   
   .item-name h3 {
     margin-bottom: 15px;
-    font-size: 18px;
-    position: relative;
-    padding-bottom: 10px;
-  }
-  
-  .item-name h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 2px;
-    background-color: white;
+    color: green;
+    font-size: 1.5rem;
   }
   
   .item-name p {
+    color: #363636;
+    font-size: 1.2rem;
     margin-bottom: 15px;
-    font-size: 14px;
   }
   
   .footer-input {
     display: flex;
+    flex-direction: column;
   }
   
   .input-email {
     flex: 1;
     padding: 10px;
     border: none;
-    border-radius: 4px 0 0 4px;
   }
   
   .btn-footer {
     background-color: #008000;
     color: white;
     border: none;
+    margin-left: 10px;
     padding: 10px 15px;
-    border-radius: 0 4px 4px 0;
     cursor: pointer;
   }
   
+ 
   .footer-footer {
     text-align: center;
+    background-color: green;
+    padding: 10px;
     margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 14px;
-    max-width: 1280px;
-    margin: 30px auto 0;
-    background-color: #008000;
-    color: white;
+    font-size: 1.2rem;
+    color: #ddd;
   }
   
   /* Responsive Styles */
