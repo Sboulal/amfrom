@@ -807,7 +807,7 @@ body {
     flex-wrap: wrap;
    flex-direction: space-between;
     /* justify-content: space-between; */
-    gap: 20px; /* Reduced gap to allow more space for items */
+    gap: 25px; /* Reduced gap to allow more space for items */
     position: relative;
     padding: 15px 0;
   }
