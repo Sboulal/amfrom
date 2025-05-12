@@ -183,3 +183,72 @@ function myFunction() {
     x.style.display = "block";
   }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Obtenir tous les liens qui pourraient pointer vers des sections
+  const links = document.querySelectorAll('a[href*="#"]');
+  
+  // Ajouter un gestionnaire d'événements à chaque lien
+  links.forEach(link => {
+      link.addEventListener('click', function(e) {
+          // Si le lien contient une ancre
+          const href = this.getAttribute('href');
+          const isAnchorLink = href.includes('#');
+          
+          if (isAnchorLink) {
+              e.preventDefault(); // Empêcher le comportement par défaut du lien
+              
+              // Extraire l'ID de l'ancre (ce qui suit le #)
+              const targetId = href.split('#')[1];
+              
+              // Masquer toutes les sections
+              const allSections = document.querySelectorAll('.content-section');
+              allSections.forEach(section => {
+                  section.style.display = 'none';
+                  section.classList.remove('active');
+              });
+              
+              // Afficher la section cible
+              const targetSection = document.getElementById(targetId);
+              if (targetSection) {
+                  targetSection.style.display = 'block';
+                  targetSection.classList.add('active');
+                  
+                  // Faire défiler jusqu'à l'élément
+                  targetSection.scrollIntoView({behavior: 'smooth'});
+              }
+          }
+      });
+  });
+  
+  // Traiter l'ancre si elle est présente dans l'URL lors du chargement initial
+  if (window.location.hash) {
+      const targetId = window.location.hash.substring(1); // Enlever le # du début
+      
+      // Masquer toutes les sections
+      const allSections = document.querySelectorAll('.content-section');
+      allSections.forEach(section => {
+          section.style.display = 'none';
+          section.classList.remove('active');
+      });
+      
+      // Afficher la section cible
+      const targetSection = document.getElementById(targetId);
+      if (targetSection) {
+          targetSection.style.display = 'block';
+          targetSection.classList.add('active');
+          
+          // Faire défiler jusqu'à l'élément
+          setTimeout(() => {
+              targetSection.scrollIntoView({behavior: 'smooth'});
+          }, 300); // Petit délai pour s'assurer que tout est chargé
+      }
+  } else {
+      // Si pas d'ancre, afficher la première section par défaut
+      const firstSection = document.querySelector('.content-section');
+      if (firstSection) {
+          firstSection.style.display = 'block';
+          firstSection.classList.add('active');
+      }
+  }
+});

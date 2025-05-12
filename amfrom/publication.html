@@ -17,6 +17,156 @@
     />
     <link rel="icon" type="image/x-icon" href="amfrom.ico" />
     <link rel="stylesheet" type="text/css" href="style-index.css" />
+     <style>
+      /* Style pour la mise en page avec menu latéral et contenu à droite */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .page-testt {
+        display: flex;
+        flex-direction: row;
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: #f5f5f5;
+      }
+      
+      /* Style pour le menu latéral */
+      .menu-sidebar {
+        width: 250px;
+        background-color: #f0f0f0;
+        border-right: 1px solid #ddd;
+      }
+      
+      .menu-sidebar ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+      
+      .menu-sidebar li {
+        border-bottom: 1px solid #ddd;
+      }
+      
+      .menu-sidebar li a {
+        display: block;
+        padding: 15px;
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+      
+      .menu-sidebar li a.active {
+        background-color: #4CAF50;
+        color: white;
+      }
+      
+      .menu-sidebar li a:hover {
+        background-color: #ddd;
+      }
+      
+      /* Style pour le contenu */
+      .content-area {
+        flex: 1;
+        padding: 20px;
+        background-color: white;
+      }
+      
+      .content-section {
+        display: none; /* Masquer tous les contenus par défaut */
+      }
+      
+      .content-section.active {
+        display: block; /* Afficher uniquement le contenu actif */
+      }
+      
+      /* Styles pour les titres */
+      h3 {
+        color: #E74C3C;
+        /* border-bottom: 2px solid #E74C3C; */
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+      
+      /* h3 {
+        color: #333;
+        margin-top: 20px;
+      } */
+      
+      /* Style pour les documents à télécharger */
+      .document-item {
+        display: flex;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      
+      .document-img {
+        width: 150px;
+        height: 200px;
+        background-color: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .document-img img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+      
+      .document-info {
+        padding: 15px;
+        flex: 1;
+      }
+      
+      .document-info h4 {
+        margin-top: 0;
+        color: #4CAF50;
+      }
+      
+      .download-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 10px;
+      }
+      
+      /* .download-btn:hover {
+        background-color: #45a049;
+      } */
+      
+      /* Style responsive */
+      @media screen and (max-width: 768px) {
+        .page-testt {
+          flex-direction: column;
+        }
+        
+        .menu-sidebar {
+          width: 100%;
+          border-right: none;
+          border-bottom: 1px solid #ddd;
+        }
+        
+        .document-item {
+          flex-direction: column;
+        }
+        
+        .document-img {
+          width: 100%;
+          height: 150px;
+        }
+      }
+    </style>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -118,9 +268,9 @@
                   </div>
                 </li>
                 <div class="dropdown-content">
-                  <a href="publication.html">➤COMITÉS</a>
-                  <a href="publication.html">➤INSTRUCTIONS AUX AUTEURS</a>
-                  <a href="publication.html">➤NUMÉROS</a>
+                  <a href="#comites">➤COMITÉS</a>
+                  <a href="#instructions">➤INSTRUCTIONS AUX AUTEURS</a>
+                  <a href="#numeros">➤NUMÉROS</a>
                 </div>
               </div>
               <hr style="background-color: rgb(0 0 0); height: 50%" />
@@ -233,9 +383,9 @@
                   </div>
                 </li>
                 <div class="dropdown-content">
-                  <a href="publication.html">➤COMITÉS</a>
-                  <a href="publication.html">➤INSTRUCTIONS AUX AUTEURS</a>
-                  <a href="publication.html">➤NUMÉROS</a>
+                 <a href="#comites">➤COMITÉS</a>
+                  <a href="#instructions">➤INSTRUCTIONS AUX AUTEURS</a>
+                  <a href="#numeros">➤NUMÉROS</a>
                 </div>
               </div>
 
@@ -305,7 +455,7 @@
            
       </div>
 
-      <div class="main-test" style="background-image: url(images/bg.jpg);">
+      <!-- <div class="main-test" style="background-image: url(images/bg.jpg);">
        
         <div class="page-test">
         
@@ -441,8 +591,150 @@
          
 
         </div>
-      </div>
+      </div> -->
+      <div class="main-testt">
+        <div class="page-testt">
+          <!-- Menu latéral -->
+          <div class="menu-sidebar">
+            <ul>
+              <li><a href="#instructions" class="menu-link active" data-target="instructions">INSTRUCTIONS AUX AUTEURS</a></li>
+              <li><a href="#comites" class="menu-link" data-target="comites">COMITÉS</a></li>
+              <li><a href="#numeros" class="menu-link" data-target="numeros">NUMÉROS</a></li>
+            </ul>
+          </div>
+          
+          <!-- Zone de contenu -->
+          <div class="content-area">
+            <!-- Section Instructions aux auteurs -->
+            <div id="instructions" class="content-section active">
+              <h3>LE BULLETIN MAROCAIN DE L'ONCOLOGIE</h3>
+              <br>
+              <p>publie des articles originaux, des revues générales, des notes techniques, des faits cliniques, des lettres à la rédaction et des éditoriaux. Ces travaux doivent être conformes aux instructions dérivées des normes de présentation des manuscrits proposés par le comité international des rédacteurs de journaux médicaux, connu sous le nom de groupe de Vancouver (International Committee of Medical Journal Editors), Uniform requirements for manuscripts submitted biomedical journals (N Engl J Med 1997: 336: 309-16).</p>
+              <h3>ENVOI DU MANUSCRIT</h3>
+              <br>
+              <p>Les manuscrits sont adressés par mail à l'adresse suivante : «bulletinoncologie@gmail.com». Le manuscrit est accompagné d'une lettre comportant le nom, le prénom, l’adresse, le numéro de téléphone et le mail de l'auteur correspondant avec lequel communiquera la rédaction.</p>
+              <h3>PRESENTATION DU MANUSCRIT</h3>
+              <br>
+              <p>Le texte est dactylographié en corps 12, en style « Times New Roman », en interligne 1.5, format de page A4 (210 x 297 mm), avec une marge de 50 mm. Le manuscrit est rédigé en français. Le texte comporte dans l'ordre et sur des pages séparées : 1) la page du titre, 2) le résumé en français avec les mots clés par ordre alphabétique, 3) le texte proprement dit, 4) les références, 5) les tableaux (un par page) avec leures légendes en français, 6) les figures (une par feuille) avec leures légendes en français.</p>
+              <h3>PAGE DU TITRE</h3>
+              <br>
+               <p>Elle comporte les mentions suivantes : le titre, l'(les) initiale(s) du ou des prénoms, le nom du ou des auteurs, ainsi que le service concerné.</p>
+               <h3>RESUME</h3>
+               <br>
+               <p>Rédigé en français, il constitue la page 2, il ne doit pas dépasser plus de 250 mots.</p>
+               <h3>MOTS CLES</h3>
+               <br>
+               <p>Ils doivent être pertinents ou descripteurs, tirés ou traduits de l'Index Medicus; Medical Subject Headings (MeSH), figurent au bas des résumés, au nombre de cinq au maximum.</p>
+               <h3>TEXTE</h3>
+               <br>
+               <p>débute à la page 3. Le titre du travail, sans indication d'auteur(s) ni d'origine est répété en haut de la première page. Le texte est rédigé dans un style clair, concis et précis. Il doit être compréhensible. Les événements passés sont rapportés à l'imparfait ou au passé composé. On ne doit employer que des abréviations courantes, le terme en entier doit précéder l'abréviation, entre parenthèses, lors de sa première apparition dans le texte, sauf s'il s'agit d'une unité de mesure internationale. Les médicaments sont identifiés par leur dénomination commune internationale éventuellement suivie, entre parenthèses, du nom de spécialité (majuscule à l'initiale) avec le sigle R. Dans une phrase, les chiffres de zéro à dix s'écrivent en toutes lettres, sauf s'ils sont suivis d'une unité de mesure abrégée. Au début d'une phrase, tous les chiffres s'écrivent en toutes lettres. Les conclusions doivent répondre clairement aux questions posées au début de l'étude.</p>
+              <h3>REFERENCES</h3>
+              <br>
+              <p>Elles sont numérotées selon l'ordre d'apparition dans le texte. Elles sont identifiées dans le texte, les tableaux et les légendes par des chiffres arabes entre crochets [square brackets]. Les numéros sont séparés par des virgules quand il s'agit de deux chiffres consécutifs ou non et par un trait d'union quand il y a plus de deux chiffres consécutifs. Seuls les chiffres extrêmes sont alors cités : [5, 7], [9-11], [5, 7, 9-11, 13]. Toutes les références citées dans le texte figurent dans la liste des références et vice versa. Jusqu'à six auteurs, ceux-ci doivent être nommément indiqués ; au-delà, seuls les six premiers sont cités, suivis de la mention « et al. ». Les lettres à la rédaction comportent la mention [lettre] ou [letter] après le titre. Des articles acceptés mais non encore publiés peuvent être référencés. On cite la revue, l'année et le volume avec la mention (à paraître) ou (in press). Les références à des communications personnelles, des thèses, des mémoires, des manuscrits en préparation ou soumis à des revues, ne sont acceptées qu'entre parenthèses dans le texte et ne doivent pas figurer dans la liste des références. Les références sont vérifiées par les auteurs avec les documents originaux.</p>
+              <h3>TABLEAUX</h3>
+              <br>
+              <p>Il est dactylographié en interligne 1.5 sur une feuille séparée. Chacun comporte en bas le numéro d'appel (en chiffres romains) et le titre (pas plus de 20 caractères) et en bas les notes explicatives (abréviations, sigles). Les unités sont données en tête de ligne ou de colonne. Les tableaux ne font pas double emploi avec les figures .</p>
+              <h3>FIGURES</h3>
+              <br>
+              <p>En noir sur fond blanc, elles doivent être d'excellente qualité. Les auteurs fournissent l'original ou des photographies sur papier brillant, non plié. Les schémas sont présentés sur une feuille A4. Les figures portent, au dos sur une étiquette autocollante, le numéro d'appel dans le texte (en chiffres arabes) et le nom de l'auteur principal. Le haut de la figure est indiqué par une flèche. Les radiographies sont présentées sous forme de photographies, bien contrastées. Les légendes des figures sont regroupées sur une feuille à part. Une figure et sa légende forment un tout qui doit être compris sans recours au texte.</p>
+              <h3>ANALYSE DES MANUSCRITS</h3>
+              <br>
+               <p>Les manuscrits sont analysés par deux lecteurs appartenant de préférence mais non obligatoirement à la discipline et par le rédacteur en chef. Les lecteurs ne connaissent pas les auteurs. Le comité de rédaction se réserve le droit de renvoyer aux auteurs, avant toute soumission à l'avis des lecteurs, les manuscrits qui ne seraient pas conformes aux recommandations. Les auteurs doivent conserver un exemplaire du manuscrit, des tableaux, des figures et une copie du fichier informatique.</p>
+               <h3>RUBRIQUES</h3>
+               <br>
+               <p><strong>L'Article original</strong> apporte des informations obtenues à partir d'une étude clinique ou de laboratoire. Il ne dépasse pas 15 pages et 30 références, il comporte les parties suivantes : introduction, méthodes, résultats, discussion et conclusion. <br> <br>
+  
+                  <strong>Le Fait clinique</strong> permet de publier une ou plusieurs observations originales bien documentées et à valeur didactique, il comporte une courte introduction, l'observation réduite aux faits essentiels, un commentaire, une conclusion et un résumé. Le texte ne dépasse pas 7 pages, ne comporte pas plus de 10 références et 3 mots clés. Il peut y'avoir un ou deux tableaux ou illustrations. <br> <br>
+                  
+                  <strong>La Note technique</strong> décrit un nouvel appareillage ou une nouvelle technique, une méthode d'évaluation, ou des incidents techniques. Elle comporte un résumé. Elle n'excède pas 7 pages, 10 références, 3 mots clés et 4 illustrations. <br> <br>
+                  
+                  <strong>La Lettre à la rédaction</strong> permet à l'auteur de donner un commentaire sur un article déjà publié ou de délivrer à ce propos une expérience personnelle. Elle permet aussi de publier rapidement un fait ou des résultats originaux pour prendre date. Le texte comporte aux plus 2 pages et 3 références sans résumé ni mots clés. <br> <br>
+                  
+                  <strong>L'Image du bulletin</strong> permet la publication d'images cliniques ou radiologiques originales, elle est accompagnée d'un texte d'1 ou 2 pages et 3 ou 5 références. <br> <br>
+                  
+                  <strong>L'Editorial</strong> concerne un sujet d'actualité, souvent traité dans le même numéro. Il ne comporte pas plus de 5 pages et 5 références <br> <br>
+                  
+                  <p> <strong>La Mise au point</strong> peut ne traiter que des développements récents du sujet choisi. A part quelques références essentielles, la littérature analysée est celle des cinq dernières années. Le texte ne comporte pas plus de 15 pages et au plus 50 références.</p>
+                  <h3>TRANSFERT DE DROITS, ENVOI D'EPREUVRES, TIRES A PART ET DEMANDE DE REPROUDUCTION:</h3>
+                  <p>l'auteur doit confirmer que l'article soumis ne fait pas l'objet d'autres publications. Il doit aussi signer l'accord de Transfert de droits. Les modifications portant sur le fond ne sont pas acceptées sur les épreuves finales ; les corrections se limiteront à la typographie. Les auteurs feront le nécessaire pour que les épreuves soient retournées à l'éditeur, revêtues de la mention « bon à tirer » dans les 48 heures suivant leur réception. En cas de retard. L’éditeur se réserve le droit de procéder à l'impression sans le bon à tirer de l'auteur.</p>
+              
+              <!-- Autres sections du contenu d'instructions aux auteurs -->
+            </div>
+            
+            <!-- Section Comités -->
+            <div id="comites" class="content-section">
+              <h3>COORDINATEURS DU GUIDE :</h3>
+              <p>Pr. Sarah Naciri, Dr. Fatima az-zahra Zakkouri, Pr. Hind Mrabti</p>
+              <h3>RESPONSABLE DU GUIDE :</h3>
+              <p>Pr Errihani Hassan (Chef de service)</p>
+              <h3>COMITÉ DE RÉDACTION DE LA VERSION 2024 :</h3>
+               <p>Pr Errihani Hassan (Chef de service, INO, Rabat) <br><br>
+                  Pr Mrabti Hind (Professeur de l’enseignement supérieur, INO, Rabat) <br><br>
+                  Pr El Ghissassi Ibrahim (Professeur de l’enseignement supérieur, INO, Rabat) <br><br>
+                  Pr Boutayeb Saber (Professeur de l’enseignement supérieur, INO, Rabat) <br><br>
+                  Dr Berrada Narjiss (Spécialiste, secteur privé, Rabat) <br><br>
+                  Dr Naciri Sarah (Professeur Assistant, INO, Rabat) <br><br>
+                  Dr Inghaouen Hanane (Professeur Assistant, INO, Rabat) <br><br>
+                  Dr Zakkouri Fatima az-zahra (Spécialiste, secteur privé, Rabat) <br><br>
+                  Dr Mokrim Maha (Spécialiste, INO, Rabat) <br><br>
+                  Dr Lannaz Saad (Spécialiste, INO, Rabat) <br><br>
+                  Pr Lkhoyaali Sihame (Professeur Assistant, INO, Rabat) <br><br>
+                  Pr Arifi Samia (Professeur agrégée, CHU Fès) <br><br>
+                  Pr Sbitti Yassir (Professeur agrégé, Hôpital militaire, Rabat) <br><br>
+                  Pr Benbrahim Zineb (Professeur agrégée, CHU Fès) <br><br>
+                  Dr Mouzount Houda (Spécialiste, Hôpital Cheikh Zayed, Rabat) <br><br>
+                  Dr Boukir Anwar (Spécialiste, Hôpital Cheikh Zayed, Rabat) <br><br>
+                  Dr EL Yacoubi Hind (Spécialiste, INO, Rabat) <br><br>
+                  Dr Lakhdissi Asmae (Spécialiste, INO, Rabat) <br><br>
+                  Dr Najem Salma (Spécialiste, INO, Rabat) <br><br>
+                  Pr Choukri El m’hadi (Professeur assistant, Hôpital militaire, Rabat) <br><br>
+                  Dr El kabous Mustapha (Spécialiste, Centre régional d’oncologie, Meknès) <br><br>
+                  Dr Saoussane Kharmoum (Spécialiste, Centre régional d’oncologie, Tanger) <br><br>
+                  Dr Majid Nora (Spécialiste, Centre hospitalier régional Moulay Youssef, Rabat)</p> <br><br>
+                 
+              <!-- Autres membres du comité -->
+              
+              <p><strong style="color: red;">E-MAIL</strong> : bulletinoncologie@gmail.com</p>
+            </div>
+            
+            <!-- Section Numéros -->
+            <div id="numeros" class="content-section">
+              <img src="images/BMO EDITION 2024 (1).png" alt="Description de l'image">
+             
+          <img src="images/BMO EDITION 2023 (2).jpg" alt="Description de l'image">
 
+<img src="images/BMO.jpg" alt="Description de l'image">
+
+<img src="images/Guide.png" alt="Description de l'image">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <script>
+        // Script pour gérer la navigation entre les onglets
+        document.addEventListener('DOMContentLoaded', function() {
+          const menuLinks = document.querySelectorAll('.menu-link');
+          
+          menuLinks.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+              e.preventDefault();
+              
+              // Retirer la classe active de tous les liens et sections
+              menuLinks.forEach(l => l.classList.remove('active'));
+              document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+              
+              // Ajouter la classe active au lien cliqué
+              this.classList.add('active');
+              
+              // Afficher la section correspondante
+              const targetId = this.getAttribute('data-target');
+              document.getElementById(targetId).classList.add('active');
+            });
+          });
+        });
+      </script>
       <footer class="main-footer">
         <div class="footer-test">
           <div class="logo-footer">

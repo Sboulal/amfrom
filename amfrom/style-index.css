@@ -180,10 +180,10 @@ body {
     cursor: pointer;
   }
   
-  .active, .dot:hover {
+  /* .active, .dot:hover {
     background-color: #008000;
   }
-  
+   */
   /* Main content */
   .main-test {
     padding-right: 0px;
