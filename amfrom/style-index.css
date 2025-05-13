@@ -825,7 +825,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: calc(25% - 20px); /* 4 items per row with gap consideration */
+    width: calc(25% - 20px); 
     margin-bottom: 20px;
   }
   
@@ -1475,16 +1475,17 @@ li.active .titre-li::after {
 
 .article-body p
 {
-  text-align: left;
   font-family: "OptimaLtNormal";
-  font-weight: bold;
-  font-size: 1.5rem;
+    font-size: 1rem;
+    color: #635957;
+    text-align: justify;
 }
 .list_item
 {
-  font-family:"OptimaLtNormal";
-  font-size: 1.6rem;
-  color: #484848;
+  font-family: "OptimaLtNormal";
+    font-size: 1rem;
+    color: #635957;
+    text-align: justify;
 }
 .list_item:not(:last-child){
   margin-bottom:1rem;
@@ -1502,18 +1503,68 @@ li.active .titre-li::after {
 {
   display: flex;
       flex-direction: row;
-      /* width: 100%; */
-      /* justify-content: space-between; */
-        /* justify-content: center; */
-        /* align-items: center; */
-        /* gap : 5px; */
+      gap : 20px;
+      justify-content: space-between;
 }
-.patt-t
+
+.article-body
 {
-  display: flex;
-  flex-direction: row;
-  
+  width: 90%;
 }
+
+.sub-title-actualite
+  {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+  }
+
+  .item-m
+  {
+    display: flex;
+    flex-direction: column;
+    
+    /* align-items: center; */
+    gap: 100px;
+    width: 50%;
+  }
+
+  .pdf-pdf-actualite {
+    background-color: #e6091d !important;
+    color: #fff;
+    font-family: "OptimaLtNormal";
+    border-radius: 0;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 0.9rem;
+    width: 77%;
+  }
+  .lien-pdf-actualite {
+    text-align: center;
+    font-size: 1.6rem;
+    width: 100%;
+    height: 35px;
+  }
+  .lien-pdf-actualite h4 {
+    font-family: "OptimaLtNormal";
+    color: red;
+  }
+  .lien-pdf-actualite a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.7rem;
+    
+  }
+  .lien-pdf-actualite p {
+    font-family: "OptimaLtNormal";
+    color: #635957;
+    text-align: justify;
+    font-size: 0.8rem;
+
+  }
+  
   /* Media Queries */
   @media screen and (max-width: 992px) {
     .web-view {
