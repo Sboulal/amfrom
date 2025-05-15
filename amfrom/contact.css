@@ -16,7 +16,6 @@ body {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Header */
@@ -180,88 +179,77 @@ body {
   .active, .dot:hover {
     background-color: #008000;
   }
-  /* General form styling */
-.flex-class {
-  max-width: 100%px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  /* background-color: #f9f9f9; */
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Field container styling */
-.div-labbel {
-  margin-bottom: 18px;
-}
-
-/* Label styling */
-.labell {
-  margin-bottom: 5px;
-}
-
-.labell label {
-  font-weight: bold;
-  color: #333;
-  font-size: 14px;
-  display: block;
-}
-
-/* Input styling */
-.input input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-size: 14px;
-  transition: border-color 0.3s;
-}
-
-.input input:focus {
-  border-color: #4a90e2;
-  outline: none;
-  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
-}
-
-/* Message input can be taller */
-#Message_id {
-  height: 100px;
-}
-
-/* Button styling */
-.btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
-}
-
-.btn:hover {
-  background-color: #45a049;
-}
-
-/* Required fields text */
-.chap p {
-  margin: 0;
-  font-size: 15px;
-  color: #45a049;
-  padding-top: 15px;
-}
-
-/* Footer section with button and required fields text */
-.div-labbel:last-child {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-}
+  .titre-contact h2
+  {
+  font-family: "OptimaLtNormal";
+  font-size: 1.8rem;
+  color: #484848;
+  margin-bottom: 2rem;
+  padding-left: 12px;
+  }
+  .flex-class {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 90%;
+    /* max-width: 500px; */
+    margin: 0 auto;
+  }
+  
+  .div-labbel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .labell {
+    font-weight: bold;
+    width: 100px; /* Largeur fixe pour aligner tous les inputs */
+    font-family: "OptimaLtNormal";
+    color: #484848;
+  }
+  
+  .input {
+    flex: 1; /* L'input prend le reste de l'espace disponible */
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #45a049;
+  }
+  
+  .chap {
+    font-size: 0.8em;
+    color: #666;
+  }
+  #Message_id {
+    height: 100px;
+  }
+  
+  /* Pour le dernier div avec le bouton et texte */
+  .div-labbel:last-child {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
 
 /* Responsive design for smaller screens */
 @media (max-width: 480px) {
@@ -379,18 +367,21 @@ body {
   .input-email {
     flex: 1;
     padding: 10px;
-    border: none;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    width: 250px;
+    height: 40px;
+    margin-bottom: 10px;
   }
   
   .btn-footer {
     background-color: #008000;
     color: white;
     border: none;
-    margin-left: 10px;
+    margin-left: 160px;
     padding: 10px 15px;
     cursor: pointer;
   }
-  
  
   .footer-footer {
     text-align: center;

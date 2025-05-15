@@ -16,8 +16,9 @@ body {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
   padding-top: 15px;
+  
 }
 
 /* Header */
@@ -180,17 +181,15 @@ body {
     cursor: pointer;
   }
   
-  /* .active, .dot:hover {
+  .active, .dot:hover {
     background-color: #008000;
   }
-   */
+  
   /* Main content */
   .main-test {
     padding-right: 0px;
     min-height: 100%;
-   
-   
-   
+    padding: 0;
   }
   
   /* Bio section */
@@ -253,6 +252,7 @@ body {
     margin-top: 0px;
     /* margin-left: -35px; */
     width: 2000px;
+    margin-bottom: 20px;
   }
   
   .textcenter {
@@ -271,6 +271,7 @@ body {
   
   .centercontent {
     text-align: center;
+    /* margin-top: -151px; */
     
   }
   
@@ -293,6 +294,7 @@ body {
     position: relative;
     max-width: 400px;
     margin: 20px auto;
+    margin-top: -160px;
   }
   
   .close-btn {
@@ -342,14 +344,38 @@ body {
     color: #008000;
     text-decoration: none;
   }
+
+  .title-fiche
+{
+  text-align: center;
+  margin-bottom: 20px;
+}
+.title-fiche h2
+{
+  font-family: "OptimaLtNormal";
+  font-size: 1.1rem;
+  color: green;
+  text-transform: uppercase;
+}
+.title-fiche p
+{
+  font-family: "OptimaLtNormal";
+  font-size: 1.1rem;
+  color: #534e4e;
+}
   
   .lien {
-    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    /* margin-top: 10px; */
+    align-items: center;
   }
   
   .lien a {
     color: #008000;
     text-decoration: none;
+   
+    
   }
   
   .cont-tt {
@@ -688,7 +714,7 @@ body {
   }
   
   .logo-footer img {
-    width: 100px;
+    width: 210px;
     margin-bottom: 15px;
   }
   
@@ -762,14 +788,18 @@ body {
   .input-email {
     flex: 1;
     padding: 10px;
-    border: none;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    width: 250px;
+    height: 40px;
+    margin-bottom: 10px;
   }
   
   .btn-footer {
     background-color: #008000;
     color: white;
     border: none;
-    margin-left: 10px;
+    margin-left: 160px;
     padding: 10px 15px;
     cursor: pointer;
   }
@@ -814,7 +844,7 @@ body {
   .gp-p
   {
     display: flex;
-    width: 100%;
+    width: 120%;
     flex-wrap: wrap;
     gap: 0px; /* Reduced gap to allow more space for items */
 
@@ -974,8 +1004,8 @@ body {
 }
 
 .img_prs img {
-  width: 85%;
-  height: 85%;
+  width: 95%;
+  height: 95%;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -1165,8 +1195,9 @@ li.active .titre-li::after {
  /* Membre page styles */
  .membre {
   max-width: 800px;
-  margin: 0 auto 40px;
+  margin: 0 auto 35px;
   text-align: justify;
+  padding-left: 0px;
 }
 
 .membre h4 {
@@ -1207,9 +1238,17 @@ li.active .titre-li::after {
 }
 .div-labbel {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  /* align-items: center; */
   justify-content: space-between;
-  width: 60%;
+  width: 100%;
+}
+.titre-contact h2
+{
+  font-family: "OptimaLtNormal";
+  font-size: 1.8rem;
+  color: #484848;
+  margin-bottom: 2rem;
 }
 
 .div-labbel h3 {
@@ -1295,28 +1334,29 @@ li.active .titre-li::after {
 {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   font-family: "OptimaLtNormal";
   font-size: 1.1rem;
   color: #534e4e;
+  padding-left: 15px;
+ 
 } 
 
-.pagetxt p
-{
-    
-    font-size: 1.2rem;
-    text-align: justify;
-    font-family: "OptimaLtNormal";
+
+.pagetxt h4{
+  font-family:"OptimaLtNormal";
+  font-size:1.6rem;
+  color:#e6091d;
+  text-align: left;
+  margin:0.5rem 0 1.3rem;
+  padding-left: 15px;
 }
 
-.pagetxt h4
-{
-  font-family: "OptimaLtNormal";
-  font-size: 1.5rem;
-  color: #e6091d;
-  text-align: left;
-  margin: 0px;
-  background-color: transparent;
+.pagetxt p{
+  text-align:justify;
+  font-family:"OptimaLtNormal";
+  font-size: 1.1rem;
+  padding-left: 15px;
 }
 .edit h2 {
   font-family: "OptimaLtNormal";
@@ -1330,13 +1370,14 @@ li.active .titre-li::after {
   border: 1px solid rgba(97, 94, 94, 0.5);
   /* display: flex; */
   padding: 1.2rem;
+  width: 25%;
 
   /* background-image: url(images/bg.jpg); */
 }
 
 .tee img {
-  width: 230px;
-  height: 360px;
+  width: 250px;
+  height: 380px;
 }
 
 .container-actualite img {
@@ -1564,6 +1605,7 @@ li.active .titre-li::after {
     font-size: 0.8rem;
 
   }
+  
   
   /* Media Queries */
   @media screen and (max-width: 992px) {
