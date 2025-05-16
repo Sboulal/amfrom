@@ -841,6 +841,7 @@ body {
     gap: 25px; /* Reduced gap to allow more space for items */
     /* position: relative; */
     padding: 15px 0;
+    
   }
   .gp-p
   {
@@ -1196,9 +1197,10 @@ li.active .titre-li::after {
  /* Membre page styles */
  .membre {
   max-width: 800px;
-  margin: 0 auto 35px;
-  text-align: justify;
-  padding-left: 0px;
+  margin-bottom: 30px;
+  margin: 0px 10px;
+  /* text-align: justify; */
+  /* padding-left: 0px; */
 }
 
 .membre h4 {
@@ -1222,29 +1224,19 @@ li.active .titre-li::after {
   margin-bottom: 15px;
   line-height: 1.6;
   text-align: justify;
-  font-family:"OptimaLtNormal";
- }
+  font-family: "OptimaLtNormal";
+  width: 140%;
+  color: #484848;
+   margin: 0 auto 35px;
+}
+
  .membre a
  {
   color: #007bff;
     text-decoration: none;
     background-color: transparent;
  }
- .colmn-all {
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.div-labbel {
-  display: flex;
-      flex-direction: row;
-      gap: 15px;
-      width: 90%;
-      /* max-width: 500px; */
-      /* margin: 0 auto; */
-  }
+ 
 
 .titre-contact h2
 {
@@ -1254,7 +1246,7 @@ li.active .titre-li::after {
   margin-bottom: 2rem;
 }
 
-.div-labbel h3 {
+.div-h h3 {
   font-family: "OptimaLtNormal";
   color: #484848;
   margin-bottom: 10px;
@@ -1264,7 +1256,13 @@ li.active .titre-li::after {
 .labell {
   margin-bottom: 10px;
 }
-
+.div-lab
+{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center; */
+}
 .labell label {
   font-weight: bold;
     width: 100px; /* Largeur fixe pour aligner tous les inputs */
