@@ -411,44 +411,24 @@
             <option value="all">Toutes les villes</option>
             <option value="casablanca" selected>Casablanca</option>
             <option value="rabat">Rabat</option>
-            <option value="tanger">Tanger</option>
+            <option value="Tanger">Tanger</option>
             <option value="marrakech">Marrakech</option>
             <option value="fes">Fès</option>
             <option value="agadir">Agadir</option>
             <option value="oujda">Oujda</option>
-            <option value="Errachidia">Errachidia</option>
-            <option value="Beni Mellal">Beni Mellal</option>
-            <option value="Nador">Nador</option>
+            <option value="errachidia">Errachidia</option>
+            <option value="beni mellal">Beni Mellal</option>
+            <option value="nador">Nador</option>
             <option value="Laayoun">Laayoun</option>
             <option value="Essaouira">Essaouira</option>
-            <option value="Elhouceima">Elhouceima</option>
-            <option value="Meknes">Meknes</option>
+            <option value="EL Houcima">EL Houcima</option>
+            <option value="meknes">Meknes</option>
           </select>
         </div>
-        <div class="specialist-info">
-          <h3>Nom : Dr. Majid Noura</h3>
-          <p><strong>Organisation :</strong> Centre d'Oncologie de Casablanca</p>
-          <p><strong>Position :</strong> Oncologue Spécialiste</p>
-        </div>
-        <div class="specialist-info">
-          <h3>Nom : Dr. Ghanem Samia</h3>
-          <p><strong>Organisation :</strong> Clinique Spécialisée Casablanca</p>
-          <p><strong>Position :</strong> Oncologue Spécialiste</p>
-        </div>
-        <div class="specialist-info">
-          <h3>Nom : Dr. Bourhafour Mouna</h3>
-          <p><strong>Organisation :</strong> Institut National d'Oncologie</p>
-          <p><strong>Position :</strong> Oncologue Médicale</p>
-        </div>
-        <div class="specialist-info">
-          <h3>Nom : Dr. El Yacoubi Hind</h3>
-          <p><strong>Organisation :</strong> Centre Hospitalier Universitaire</p>
-          <p><strong>Position :</strong> Oncologue Radiothérapeute</p>
-        </div>
+        <div id="specialist-list">
+          <!-- Les informations des spécialistes seront ajoutées ici dynamiquement -->
       </div>
     </div>
-
-  </div>
 </div>
 
 <footer class="main-footer">
@@ -509,140 +489,297 @@
  <script src="acceuill.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
  <script>
-    // Fonction pour le menu mobile
-    function myFunction() {
-      var x = document.getElementById("myLinks");
-      if (x.style.display === "flex") {
-        x.style.display = "none";
-      } else {
-        x.style.display = "flex";
+ // Fonction pour le menu mobile
+function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "flex") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "flex";
+  }
+}
+
+// Initialisation de la carte
+document.addEventListener('DOMContentLoaded', function() {
+  // Définir les coordonnées des villes - IMPORTANT: doit être défini AVANT d'être utilisé
+  const cityCoordinates = {
+    'casablanca': [33.5731, -7.5898],
+    'rabat': [33.9716, -6.8498],
+    'Tanger': [35.7595, -5.8340],
+    'marrakech': [31.6295, -8.0086],
+    'fes': [34.0209, -5.0078],
+    'agadir': [30.4278, -9.5981],
+    'oujda': [34.6725, -1.9006],
+    'errachidia': [31.6972, -4.4190],
+    'beni mellal': [32.3344, -6.3342],
+    'nador': [35.1745, -2.9333],
+    'Laayoun': [24.8800, -13.1625],
+    'Essaouira': [31.5139, -9.7650],
+    'EL Houcima': [35.2494, -3.9278],
+    'meknes': [33.8938, -5.5550]
+  };
+
+  // Initialisation de la carte
+  const map = L.map('map').setView([33.5731, -7.5898], 10); // Centré sur Casablanca par défaut
+  
+  // Ajout de la couche de carte
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+  
+  // Base de données des spécialistes en oncologie
+
+  const annuaire = [
+    {id: 1, titre: "Pr", name: "Errihani", prenom: "Hassan", organization: "INO Rabat", city: "rabat", position: "Chef de service", promo: null},
+    {id: 2, titre: "Pr", name: "Mrabti", prenom: "Hindi", organization: "INO Rabat", city: "rabat", position: "Professeur", promo: 2},
+    {id: 3, titre: "Pr", name: "Boutayeb", prenom: "Saber", organization: "INO Rabat", city: "rabat", position: "Professeur", promo: 2},
+    {id: 4, titre: "Pr", name: "Elghissassi", prenom: "Ibrahim", organization: "INO Rabat", city: "rabat", position: "Professeur", promo: 2},
+    {id: 5, titre: "Dr", name: "Abahssain", prenom: "Halima", organization: "INO Rabat", city: "rabat", position: "Spécialiste", promo: 4},
+    {id: 6, titre: "Dr", name: "Berrada", prenom: "Narjiss", organization: "INO Rabat", city: "rabat", position: "Spécialiste", promo: 4},
+    {id: 7, titre: "Dr", name: "Inrhaoun", prenom: "Hanane", organization: "INO Rabat", city: "rabat", position: "Spécialiste", promo: null},
+    {id: 8, titre: "Dr", name: "Naciri", prenom: "Sara", organization: "INO Rabat", city: "rabat", position: "Spécialiste", promo: 4},
+    {id: 9, titre: "Dr", name: "Mokrim", prenom: "Maha", organization: "INO Rabat", city: "rabat", position: "Spécialiste", promo: 8},
+    {id: 10, titre: "Dr", name: "Zakkouri", prenom: "Fatima Zohra", organization: "INO Rabat", city: "rabat", position: "Spécialiste", promo: 7},
+    {id: 11, titre: "Dr", name: "Rifai", prenom: "Leila", organization: "INO Rabat", city: "rabat", position: "Oncogénéticienne", promo: null},
+    {id: 12, titre: "Dr", name: "Mazouz", prenom: "Aicha", organization: "Ministère santé, Rabat", city: "rabat", position: "Spécialiste", promo: 9},
+    {id: 13, titre: "Pr", name: "Ichou", prenom: "Mohamed", organization: "Hopital militaire de Rabat", city: "rabat", position: "Professeur", promo: null},
+    {id: 14, titre: "Pr", name: "Tanz", prenom: "Rachid", organization: "Hopital militaire de Rabat", city: "rabat", position: "Professeur", promo: 5},
+    {id: 15, titre: "Pr", name: "Sbitti", prenom: "Yassir", organization: "Hopital militaire de Rabat", city: "rabat", position: "Professeur assistant", promo: 2},
+    {id: 16, titre: "Pr", name: "Mahfoud", prenom: "Tarik", organization: "Hopital militaire de Rabat", city: "rabat", position: "Professeur assistant", promo: 5},
+    {id: 17, titre: "Pr", name: "Alaoui Slimani", prenom: "Khawla", organization: "Hopital militaire de Rabat", city: "rabat", position: "Professeur assistant", promo: 4},
+    {id: 18, titre: "Dr", name: "Khmamouche", prenom: "Mohamed reda", organization: "Hopital militaire de Rabat", city: "rabat", position: "Professeur assistant", promo: null},
+    {id: 19, titre: "Dr", name: "Debbagh", prenom: "Adil", organization: "Hopital militaire de Rabat", city: "rabat", position: "Spécialiste", promo: 7},
+    {id: 20, titre: "Dr", name: "El Alami", prenom: "Iliass", organization: "Hopital militaire de Rabat", city: "rabat", position: "Spécialiste", promo: 10},
+    {id: 21, titre: "Dr", name: "El Mhadi", prenom: "Choukri", organization: "Hopital militaire de Rabat", city: "rabat", position: "Spécialiste", promo: 11},
+    {id: 22, titre: "Dr", name: "Namad", prenom: "Tariq", organization: "Hopital militaire de Rabat", city: "rabat", position: "Spécialiste", promo: 8},
+    {id: 23, titre: "Dr", name: "Alaoui", prenom: "Lamia", organization: "Hopital militaire de Rabat", city: "rabat", position: "Spécialiste", promo: 11},
+    {id: 24, titre: "Dr", name: "Mokhlis", prenom: "Mohamed Anouar", organization: "Hopital militaire de Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 25, titre: "Dr", name: "Akla", prenom: "Sarra", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 26, titre: "Dr", name: "Baldé", prenom: "Salif", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 27, titre: "Dr", name: "Ouguellit", prenom: "Siham", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 28, titre: "Dr", name: "Sow", prenom: "Mohamed Lamine", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 29, titre: "Dr", name: "Adrif", prenom: "Amine", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 30, titre: "Dr", name: "Daoudi", prenom: "Sara", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 31, titre: "Dr", name: "El Mouhtadi", prenom: "Salma", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 32, titre: "Dr", name: "Filali", prenom: "Nadia", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 33, titre: "Dr", name: "Ali Mhamat", prenom: "Mariam", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 34, titre: "Dr", name: "Messouna Alassane", prenom: "Mohamed", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 35, titre: "Dr", name: "Razine", prenom: "Sawssane", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 36, titre: "Dr", name: "Benchekroun", prenom: "Khadija", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 37, titre: "Dr", name: "Harrak", prenom: "Soukaina", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 38, titre: "Dr", name: "Lemsanes", prenom: "Siham", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 39, titre: "Dr", name: "Najem", prenom: "Salma", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 40, titre: "", name: "Gloria", prenom: "Akimana", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 41, titre: "", name: "Mesmoudi", prenom: "Bouthayna", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 42, titre: "", name: "El midaoui", prenom: "Lamya", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 43, titre: "", name: "Onana ngongo", prenom: "Remy", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 44, titre: "Dr", name: "LAMINE", prenom: "Saida", organization: "Hopital militaire de Rabat", city: "rabat", position: "Résident", promo: null},
+    {id: 45, titre: "Pr", name: "Mellas", prenom: "Nawfel", organization: "CHU Hassan II de Fès", city: "fes", position: "Chef de service", promo: 3},
+    {id: 46, titre: "Pr", name: "Arifi", prenom: "Samia", organization: "CHU Hassan II de Fès", city: "fes", position: "Professeur", promo: 4},
+    {id: 47, titre: "Dr", name: "Ouafki", prenom: "Imane", organization: "CHU Fès", city: "fes", position: "Spécialiste", promo: 7},
+    {id: 48, titre: "Pr", name: "Benbrahim", prenom: "Zineb", organization: "CHU Hassan II de Fès", city: "fes", position: "Professeur assistant", promo: 7},
+    {id: 49, titre: "Dr", name: "Oualla", prenom: "Karima", organization: "CHU Fès", city: "fes", position: "Professeur assistant", promo: 8},
+    {id: 50, titre: "Dr", name: "Amaadour", prenom: "Lamiae", organization: "CHU Hassan II de Fès", city: "fes", position: "Spécialiste", promo: 9},
+    {id: 51, titre: "Dr", name: "Ouahbi", prenom: "Hajar", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 52, titre: "Dr", name: "Bedoudou", prenom: "Hanae", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 53, titre: "Dr", name: "Abouljaoud", prenom: "Bouhra", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 54, titre: "Dr", name: "Azegrar", prenom: "Meryem", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 55, titre: "Dr", name: "Benhami", prenom: "Mariam", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 56, titre: "Dr", name: "Hamidou", prenom: "Dioba Doumbia", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 57, titre: "Dr", name: "Zouiten", prenom: "Othmane", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 58, titre: "Dr", name: "Messoudi", prenom: "Kawthar", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 59, titre: "Dr", name: "Ahalli", prenom: "Ibtihal", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 60, titre: "Dr", name: "Boujarnija", prenom: "Raihani", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 61, titre: "Dr", name: "Acharfi", prenom: "Nissrine", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 62, titre: "Dr", name: "Hajjane", prenom: "Loubna", organization: "CHU Hassan II de Fès/Casa", city: "fes", position: "Résident", promo: null},
+    {id: 63, titre: "Dr", name: "Berrad", prenom: "Soumia", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 64, titre: "Dr", name: "Erraichi", prenom: "Hayat", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 65, titre: "Dr", name: "Hazzaz", prenom: "Reda", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 66, titre: "Dr", name: "El ouai", prenom: "Yassine", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 67, titre: "Dr", name: "Darif", prenom: "Khadija", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 68, titre: "Dr", name: "Nouiakh", prenom: "Lamiae", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null},
+    {id: 69, titre: "Pr", name: "Belbaraka", prenom: "Rhizlane", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Professeur", promo: 4},
+    {id: 70, titre: "Dr", name: "Mohtaram", prenom: "Amina", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Spécialiste", promo: 7},
+    {id: 71, titre: "Dr", name: "Layachi", prenom: "Mohamed", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Spécialiste", promo: 11},
+    {id: 72, titre: "Dr", name: "Naqos", prenom: "Nora", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Spécialiste", promo: 10},
+    {id: 73, titre: "Dr", name: "Fadli", prenom: "Mohamed", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Spécialiste", promo: 11},
+    {id: 74, titre: "Dr", name: "Afani", prenom: "Leila", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Spécialiste", promo: 10},
+    {id: 75, titre: "Dr", name: "Lakloumi", prenom: "Khaoula", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Résident", promo: null},
+    {id: 76, titre: "Dr", name: "Kintossou", prenom: "Ephraim", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Résident", promo: null},
+    {id: 77, titre: "Dr", name: "El Bouaouidi", prenom: "Kawtar", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Résident", promo: null},
+    {id: 78, titre: "Dr", name: "Habib", prenom: "Dialo", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Résident", promo: null},
+    {id: 79, titre: "Dr", name: "Elouarzazi", prenom: "Salma", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Résident", promo: null},
+    {id: 80, titre: "Pr", name: "Essâdi", prenom: "Ismail", organization: "Hôpital Militaire Marrakech", city: "marrakech", position: "Professeur", promo: null},
+    {id: 81, titre: "Dr", name: "Moussaid", prenom: "Yassine", organization: "Hopital militaire de Marrakech", city: "marrakech", position: "Spécialiste", promo: 7},
+    {id: 82, titre: "Pr", name: "Afqir", prenom: "Said", organization: "Centre d'onco Oujda", city: "oujda", position: "Chef de service", promo: 2},
+    {id: 83, titre: "Pr", name: "Brahmi", prenom: "Sami", organization: "Centre d'onco Oujda", city: "oujda", position: "Professeur", promo: 6},
+    {id: 84, titre: "Dr", name: "Ziani", prenom: "Fatima zahra", organization: "Centre d'onco Oujda", city: "oujda", position: "Spécialiste", promo: 10},
+    {id: 85, titre: "Dr", name: "Seddik", prenom: "Youssef", organization: "Centre d'onco Oujda", city: "oujda", position: "Spécialiste", promo: 11},
+    {id: 86, titre: "Dr", name: "Al Jarroudi", prenom: "Ouissam", organization: "Centre d'onco Oujda", city: "oujda", position: "Résident", promo: null},
+    {id: 87, titre: "Dr", name: "Jaouani", prenom: "Laila", organization: "Centre d'onco Oujda", city: "oujda", position: "Résident", promo: null},
+    {id: 88, titre: "Dr", name: "Chacha", prenom: "Rania", organization: "Centre d'onco Oujda", city: "oujda", position: "Résident", promo: null},
+    {id: 89, titre: "Dr", name: "Zaimi", prenom: "Adil", organization: "Centre d'onco Oujda", city: "oujda", position: "Résident", promo: null},
+    {id: 90, titre: "Dr", name: "Majid", prenom: "Noura", organization: "Casablanca", city: "casablanca", position: "Spécialiste", promo: 7},
+    {id: 91, titre: "Dr", name: "Ghanem", prenom: "Samia", organization: "Casablanca", city: "casablanca", position: "Spécialiste", promo: 5},
+    {id: 92, titre: "Dr", name: "Bourhafour", prenom: "Mouna", organization: "Casablanca", city: "casablanca", position: "Spécialiste", promo: null},
+    {id: 93, titre: "Dr", name: "El Yacoubi", prenom: "Hind", organization: "Casablanca", city: "casablanca", position: "Spécialiste", promo: 6},
+    {id: 94, titre: "Dr", name: "Aaribi", prenom: "Imane", organization: "Casablanca", city: "casablanca", position: "Spécialiste", promo: 7},
+    {id: 95, titre: "Dr", name: "Haffadi", prenom: "Mariam", organization: "CHU casablanca", city: "casablanca", position: "Résident", promo: null},
+    {id: 96, titre: "Dr", name: "Zmaimita", prenom: "Hassania", organization: "CHU casablanca", city: "casablanca", position: "Résident", promo: null},
+    {id: 97, titre: "Dr", name: "Belmaaichi", prenom: "Abderafia", organization: "CHU casablanca", city: "casablanca", position: "Résident", promo: null},
+    {id: 98, titre: "Dr", name: "Ait kaikai", prenom: "Imane", organization: "CHU casablanca", city: "casablanca", position: "Résident", promo: null},
+    {id: 99, titre: "Dr", name: "Belhouari", prenom: "Meriem", organization: "CHU casablanca", city: "casablanca", position: "Résident", promo: null},
+    {id: 100, titre: "Dr", name: "Zidani", prenom: "Hind", organization: "CHU casablanca", city: "casablanca", position: "Résident", promo: null},
+    {id: 101, titre: "Dr", name: "Bakungo", prenom: "Guylain", organization: "CHU Casablanca", city: "casablanca", position: "Résident", promo: null},
+    {id: 102, titre: "Dr", name: "Rais", prenom: "Ghizlane", organization: "Centre d'onco Agadir", city: "agadir", position: "Spécialiste", promo: 6},
+    {id: 103, titre: "Dr", name: "Aassab", prenom: "Rachid", organization: "Centre d'onco Agadir", city: "agadir", position: "Spécialiste", promo: 7},
+    {id: 104, titre: "Dr", name: "El Bakraoui", prenom: "Kamal", organization: "Centre d'onco Agadir", city: "agadir", position: "Spécialiste", promo: 8},
+    {id: 105, titre: "Dr", name: "Bouyahia", prenom: "Nezar", organization: "Centre d'onco Agadir", city: "agadir", position: "Spécialiste", promo: 8},
+    {id: 106, titre: "Dr", name: "Benhammane", prenom: "Hafida", organization: "Centre d'onco Agadir", city: "agadir", position: "Spécialiste", promo: 7},
+    {id: 107, titre: "Dr", name: "Daoudi", prenom: "Khaoula", organization: "Centre d'onco Agadir", city: "agadir", position: "Spécialiste", promo: 8},
+    {id: 108, titre: "Dr", name: "Chad", prenom: "Amine", organization: "Centre d'onco Agadir", city: "agadir", position: "Spécialiste", promo: 9},
+    {id: 109, titre: "Dr", name: "Akasbi", prenom: "Yousra", organization: "Centre d'onco MeKnès", city: "meknes", position: "Spécialiste", promo: 7},
+    {id: 110, titre: "Dr", name: "Kloub", prenom: "Hanan", organization: "Centre d'onco MeKnès", city: "meknes", position: "Spécialiste", promo: 10},
+    {id: 111, titre: "Dr", name: "Elkabous", prenom: "Mustapha", organization: "Centre d'onco MeKnès", city: "meknes", position: "Spécialiste", promo: 9},
+    {id: 112, titre: "Dr", name: "El omrani", prenom: "Fadwa", organization: "Centre d'onco MeKnès", city: "meknes", position: "Spécialiste", promo: 9},
+    {id: 113, titre: "Pr", name: "Fetohi", prenom: "Mohamed", organization: "Hopital militaire de Meknès", city: "meknes", position: "Chef de service", promo: 4},
+    {id: 114, titre: "Dr", name: "Toreis", prenom: "Mehdi", organization: "Hopital militaire de Meknès", city: "meknes", position: "Spécialiste", promo: 11},
+    {id: 115, titre: "Pr", name: "Bazine", prenom: "Aziz", organization: "Hopital militaire de Meknès", city: "meknes", position: "Professeur assistant", promo: 5},
+    {id: 116, titre: "Dr", name: "Akkar", prenom: "Othman", organization: "Nador", city: "nador", position: "Spécialiste", promo: 10},
+    {id: 117, titre: "Dr", name: "Lkhoyaali", prenom: "Siham", organization: "Errachidia", city: "errachidia", position: "Spécialiste", promo: 8},
+    {id: 118, titre: "Dr", name: "Rachdi", prenom: "Awatif", organization: "Errachidia", city: "errachidia", position: "Spécialiste", promo: null},
+    {id: 119, titre: "Dr", name: "Lannaz", prenom: "Saad", organization: "Errachidia", city: "errachidia", position: "Spécialiste", promo: 10},
+    {id: 120, titre: "Dr", name: "Ouziane", prenom: "Imane", organization: "Beni Mellal", city: "beni mellal", position: "Spécialiste", promo: 9},
+    {id: 121, titre: "Dr", name: "Salmi", prenom: "Narimane", organization: "Beni Mellal", city: "beni mellal", position: "Spécialiste", promo: 10},
+    {id: 122, titre: "Dr", name: "Lakhdissi", prenom: "Asmaa", organization: "Beni Mellal", city: "beni mellal", position: "Spécialiste", promo: 10},
+    {id: 123, titre: "Dr", name: "Najib", prenom: "Rajae", organization: "Beni Mellal", city: "beni mellal", position: "Spécialiste", promo: 10},
+    {id: 124,titre: "Dr",  name: "Bellahammou",prenom: "Khadija",organization: "Beni Mellal",city: "Beni Mellal", position: "Spécialiste",promo: 10},
+    {id: 125,titre: "Pr",  name: "EL Mrabet",prenom: "Fatima Zahra",organization: "Tanger",city: "Tanger", position: "Professeur ",promo: 6},
+    {id: 126,titre: "Dr",  name: "Hijri",prenom: "Fatima Zahra",organization: "Tanger",city: "Tanger", position: "Spécialiste",promo: 8},
+    {id: 127,titre: "Dr",  name: "Mesmoudi",prenom: "Mohamed",organization: "Tanger",city: "Tanger", position: "Spécialiste",promo: 4},
+    {id: 128,titre: "Dr",  name: "Rahhali",prenom: "Rabie",organization: "Tanger",city: "Tanger", position: "Spécialiste",promo: 4},
+    {id: 129,titre: "Dr",  name: "Kharmoum",prenom: "Saoussane",organization: "Tanger",city: "Tanger", position: "Spécialiste",promo: 7},
+    {id: 130,titre: "Dr",  name: "Sghiri",prenom: "Tanae",organization: "Tanger",city: "Tanger", position: "Spécialiste",promo: 7},
+    {id: 131,titre: "Dr",  name: "Amzerin",prenom: "Mounia",organization: "Tanger",city: "Tanger", position: "Spécialiste",promo: 7},
+    {id: 132,titre: "Dr",  name: "Atreche",prenom: "Loubna",organization: "Essaouira",city: "Essaouira", position: "Spécialiste",promo: 11},
+    {id: 133,titre: "Dr",  name: "Essakhi",prenom: "Sara",organization: "Laayoun",city: "Laayoun", position: "Spécialiste",promo: 11},
+    {id: 134,titre: "Dr",  name: "EL Achhab",prenom: "Laila",organization: "Laayoun",city: "Laayoun", position: "Spécialiste",promo: 11},
+    {id: 135,titre: "Dr",  name: "Chaachoue",prenom: "Hajar",organization: "Laayoun",city: "Laayoun", position: "Spécialiste",promo: 11},
+    {id: 136,titre: "Dr",  name: "Baggar",prenom: "Soufiane",organization: "CRO EL Houcima",city: "EL Houcima", position: "Spécialiste",promo: 11},
+    {id: 137,titre: "Dr",  name: "Kanab",prenom: "Rajae",organization: "CRO EL Houcima",city: "EL Houcima", position: "Spécialiste",promo: 10},
+    {id: 138,titre: "Dr",  name: "Ettahri",prenom: "Hamza",organization: "CRO EL Houcima",city: "EL Houcima", position: "Spécialiste",promo: 11},
+    {id: 139,titre: "Dr",  name: "Raiss",prenom: "Hanan",organization: "CRO EL Houcima",city: "EL Houcima", position: "Spécialiste",promo: 10},
+    {id: 140,titre: "Pr",  name: "Elmesbahi",prenom: "Omar",organization: "Clinique Annakhil Rabat",city: "Rabat", position: "Spécialiste",promo: 1}
+    
+  ];
+
+  
+  // Ajouter les coordonnées géographiques pour chaque spécialiste
+  annuaire.forEach(specialist => {
+    // Attribuer des coordonnées en fonction de la ville
+    const cityKey = specialist.city.toLowerCase();
+    if (cityCoordinates[cityKey]) {
+      specialist.lat = cityCoordinates[cityKey][0];
+      specialist.lng = cityCoordinates[cityKey][1];
+    } else {
+      // Par défaut, utiliser les coordonnées du centre du Maroc
+      specialist.lat = 31.7917;
+      specialist.lng = -7.0926;
+    }
+  });
+  
+  // Création d'un objet pour stocker les marqueurs par ville
+  const markersByCity = {};
+  
+  // Création des marqueurs et des popups
+  annuaire.forEach(specialist => {
+    if (specialist.name && specialist.lat && specialist.lng) {
+      const marker = L.marker([specialist.lat, specialist.lng])
+        .bindPopup(`<b>${specialist.titre} ${specialist.name}</b><br>
+                    <strong>Organisation:</strong> ${specialist.organization}<br>
+                    <strong>Position:</strong> ${specialist.position}`);
+      
+      // Organiser les marqueurs par ville
+      if (!markersByCity[specialist.city]) {
+        markersByCity[specialist.city] = [];
+      }
+      markersByCity[specialist.city].push(marker);
+      
+      // Ajouter à la carte par défaut si c'est à Casablanca
+      if (specialist.city === "casablanca") {
+        marker.addTo(map);
+      }
+    }
+  });
+  
+  // Mettre à jour le panneau d'information en fonction de la ville sélectionnée
+  function updateInfoPanel(city) {
+    // Référencer directement l'élément par son ID
+    const specialistList = document.getElementById('specialist-list');
+    if (!specialistList) return;
+    
+    // Vider le panneau d'information
+    specialistList.innerHTML = '';
+    
+    // Filtrer les spécialistes par ville ou afficher tous
+    const filteredSpecialists = city === 'all' 
+      ? annuaire.filter(spec => spec.name) // Exclure les entrées vides
+      : annuaire.filter(spec => spec.city === city && spec.name);
+    
+    // Ajouter les informations des spécialistes
+    filteredSpecialists.forEach(specialist => {
+      const specialistDiv = document.createElement('div');
+      specialistDiv.className = 'specialist-info';
+      const displayName = specialist.titre ? 
+        `${specialist.titre} ${specialist.prenom || ''} ${specialist.name || ''}`.trim() : 
+        `${specialist.prenom || ''} ${specialist.name || ''}`.trim();
+      
+      specialistDiv.innerHTML = `
+        <h3>${displayName}</h3>
+        <p><strong>Organisation :</strong> ${specialist.organization || ''}</p>
+        <p><strong>Position :</strong> ${specialist.position || ''}</p>
+        ${specialist.promo ? `<p><strong>Promotion :</strong> ${specialist.promo}</p>` : ''}
+      `;
+      specialistList.appendChild(specialistDiv);
+    });
+  }
+  
+  // Gestion du changement de ville
+  document.getElementById('city-selector').addEventListener('change', function(e) {
+    const selectedCity = e.target.value;
+    
+    // Supprimer tous les marqueurs de la carte
+    Object.values(markersByCity).flat().forEach(marker => {
+      map.removeLayer(marker);
+    });
+    
+    // Ajouter les marqueurs de la ville sélectionnée ou tous les marqueurs
+    if (selectedCity === 'all') {
+      Object.values(markersByCity).flat().forEach(marker => {
+        marker.addTo(map);
+      });
+      map.setView([31.7917, -7.0926], 6); // Vue centrée sur le Maroc
+    } else if (markersByCity[selectedCity]) {
+      markersByCity[selectedCity].forEach(marker => {
+        marker.addTo(map);
+      });
+      
+      if (cityCoordinates[selectedCity]) {
+        map.setView(cityCoordinates[selectedCity], 13);
       }
     }
     
-    // Initialisation de la carte
-    document.addEventListener('DOMContentLoaded', function() {
-      // Initialisation de la carte
-      const map = L.map('map').setView([33.5731, -7.5898], 10); // Centré sur Casablanca par défaut
-      
-      // Ajout de la couche de carte
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(map);
-      
-      // Données des oncologues avec leurs coordonnées
-      const specialistsData = [
-        { name: "Dr. Majid Noura", position: "Oncologue Spécialiste", organization: "Centre d'Oncologie de Casablanca", lat: 33.5731, lng: -7.5898, city: "casablanca" },
-        { name: "Dr. Samira Hakim", position: "Oncologue Médical", organization: "Clinique Al Farabi", lat: 33.5920, lng: -7.6226, city: "casablanca" },
-        { name: "Dr. Mohammed Benani", position: "Radiothérapeute", organization: "CHU Ibn Rochd", lat: 33.5829, lng: -7.6136, city: "casablanca" },
-        { name: "Dr. Ghanem Samia", position: "Oncologue Spécialiste", organization: "Clinique Spécialisée", lat: 33.9716, lng: -6.8498, city: "rabat" },
-        { name: "Dr. Karima Ouazzani", position: "Oncologue Médical", organization: "Institut National d'Oncologie", lat: 33.9823, lng: -6.8554, city: "rabat" },
-        { name: "Dr. Bourhafour Mouna", position: "Oncologue Médicale", organization: "Institut National d'Oncologie", lat: 31.6295, lng: -8.0086, city: "marrakech" },
-        { name: "Dr. Ahmed Belkouch", position: "Radiothérapeute", organization: "Centre d'Oncologie", lat: 31.6420, lng: -8.0124, city: "marrakech" },
-        { name: "Dr. El Yacoubi Hind", position: "Oncologue Radiothérapeute", organization: "Centre Hospitalier Universitaire", lat: 34.0209, lng: -5.0078, city: "fes" },
-        { name: "Dr. Nabil Ismaili", position: "Oncologue Médical", organization: "Centre d'Oncologie Hassan II", lat: 34.0301, lng: -5.0134, city: "fes" },
-        { name: "Dr. Ahmed Kabbaj", position: "Oncologue Médical", organization: "Clinique Oncologique du Nord", lat: 35.7595, lng: -5.8340, city: "tanger" },
-        { name: "Dr. Nadia El Mansouri", position: "Oncologue Spécialiste", organization: "Centre Ibn Batouta", lat: 30.4278, lng: -9.5981, city: "agadir" },
-        { name: "Dr. Karim Benjelloun", position: "Oncologue Radiothérapeute", organization: "Centre d'Oncologie Oriental", lat: 34.6725, lng: -1.9006, city: "oujda" }
-      ];
-      
-      // Création d'un objet pour stocker les marqueurs par ville
-      const markersByCity = {};
-      
-      // Création des marqueurs et des popups
-      specialistsData.forEach(specialist => {
-        const marker = L.marker([specialist.lat, specialist.lng])
-          .bindPopup(`<b>${specialist.name}</b><br>
-                      <strong>Organisation:</strong> ${specialist.organization}<br>
-                      <strong>Position:</strong> ${specialist.position}`);
-        
-        // Organiser les marqueurs par ville
-        if (!markersByCity[specialist.city]) {
-          markersByCity[specialist.city] = [];
-        }
-        markersByCity[specialist.city].push(marker);
-        
-        // Ajouter à la carte par défaut si c'est à Casablanca
-        if (specialist.city === "casablanca") {
-          marker.addTo(map);
-        }
-      });
-      
-      // Mettre à jour le panneau d'information en fonction de la ville sélectionnée
-      function updateInfoPanel(city) {
-        // Vider le panneau d'information sauf le sélecteur de ville
-        const infoPanel = document.querySelector('.info-panel');
-        const locationSelector = infoPanel.querySelector('.location-selector');
-        infoPanel.innerHTML = '';
-        infoPanel.appendChild(locationSelector);
-        
-        // Filtrer les spécialistes par ville ou afficher tous
-        const filteredSpecialists = city === 'all' 
-          ? specialistsData 
-          : specialistsData.filter(spec => spec.city === city);
-        
-        // Ajouter les informations des spécialistes
-        filteredSpecialists.forEach(specialist => {
-          const specialistDiv = document.createElement('div');
-          specialistDiv.className = 'specialist-info';
-          specialistDiv.innerHTML = `
-            <h3>Nom : ${specialist.name}</h3>
-            <p><strong>Organisation :</strong> ${specialist.organization}</p>
-            <p><strong>Position :</strong> ${specialist.position}</p>
-          `;
-          infoPanel.appendChild(specialistDiv);
-        });
-      }
-      
-      // Gestion du changement de ville
-      document.getElementById('city-selector').addEventListener('change', function(e) {
-        const selectedCity = e.target.value;
-        
-        // Supprimer tous les marqueurs de la carte
-        Object.values(markersByCity).flat().forEach(marker => {
-          map.removeLayer(marker);
-        });
-        
-        // Ajouter les marqueurs de la ville sélectionnée ou tous les marqueurs
-        if (selectedCity === 'all') {
-          Object.values(markersByCity).flat().forEach(marker => {
-            marker.addTo(map);
-          });
-          map.setView([31.7917, -7.0926], 6); // Vue centrée sur le Maroc
-        } else {
-          markersByCity[selectedCity].forEach(marker => {
-            marker.addTo(map);
-          });
-          
-          // Centrer sur la ville sélectionnée
-          const cityCoordinates = {
-            'casablanca': [33.5731, -7.5898],
-            'rabat': [33.9716, -6.8498],
-            'tanger': [35.7595, -5.8340],
-            'marrakech': [31.6295, -8.0086],
-            'fes': [34.0209, -5.0078],
-            'agadir': [30.4278, -9.5981],
-            'oujda': [34.6725, -1.9006],
-            'Errachidia': [31.6972, -4.4190],
-            'Beni Mellal': [32.3344, -6.3342],
-            'Nador': [35.1745, -2.9333],
-            'Laayoun': [24.8800, -13.1625],
-            'Essaouira': [31.5139, -9.7650],
-            'Elhouceima': [32.9333, -3.9500],
-            'Meknes': [33.8938, -5.5550]
-          };
-          
-          if (cityCoordinates[selectedCity]) {
-            map.setView(cityCoordinates[selectedCity], 13);
-          }
-        }
-        
-        // Mettre à jour le panneau d'information
-        updateInfoPanel(selectedCity);
-      });
-      
-      // Initialisation avec Casablanca
-      updateInfoPanel('casablanca');
-    });
+    // Mettre à jour le panneau d'information
+    updateInfoPanel(selectedCity);
+  });
+  
+  // Initialisation avec Casablanca (puisque c'est l'option selected dans votre HTML)
+  setTimeout(() => {
+    // Simulation du changement vers Casablanca pour initialiser correctement
+    const event = new Event('change');
+    document.getElementById('city-selector').dispatchEvent(event);
+  }, 100);
+});
  </script>
 </body>
 </html>

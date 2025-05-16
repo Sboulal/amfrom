@@ -1,515 +1,354 @@
-<!-- <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste déroulante</title>
-    <style>
-  /* Style de base pour la liste */
-.page-ul ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-
-.page-ul li {
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  overflow: hidden;
-  position: relative; /* Pour le positionnement du contenu */
-}
-
-/* Style pour le titre de chaque élément de liste */
-.titre-li {
-  background-color: #f5f5f5;
-  padding: 15px;
-  font-weight: bold;
-  font-size: 18px;
-  cursor: pointer;
-  position: relative;
-  transition: background-color 0.3s ease;
-  width: 30%; /* Largeur fixe pour les titres */
-  box-sizing: border-box;
-}
-
-.titre-li:hover {
-  background-color: #e9e9e9;
-}
-
-/* Changement de couleur pour l'élément actif */
-li.active .titre-li {
-  background-color: #4CAF50; /* Couleur verte */
-  color: white; /* Texte blanc pour meilleur contraste */
-}
-
-/* Ajouter un indicateur visuel (flèche) */
-.titre-li::after {
-  content: '\25BC';  /* Flèche vers le bas */
-  position: absolute;
-  right: 15px;
-  transition: transform 0.3s ease;
-}
-
-/* Style pour le contenu qui sera caché/affiché */
-.contenu {
-  display: none;  /* Caché par défaut */
-  padding: 15px;
-  border-left: 1px solid #ddd;
-  background-color: #fff;
-  position: absolute;
-  top: 0;
-  left: 30%; /* Position à droite du titre */
-  width: 70%; /* Largeur pour le contenu */
-  box-sizing: border-box;
-  height: 100%; /* Même hauteur que le parent */
-  overflow-y: auto; /* Défilement si contenu trop long */
-}
-
-/* Afficher le contenu quand la classe 'active' est présente */
-li.active {
-  min-height: 300px; /* Hauteur minimale pour voir le contenu */
-}
-
-li.active .contenu {
-  display: block;
-}
-
-/* Rotation de la flèche quand l'élément est actif */
-li.active .titre-li::after {
-  transform: rotate(0); /* Flèche pointant vers la droite */
-  content: '\25B6'; /* Changer pour une flèche vers la droite */
-}
-
-/* Style pour les titres dans le contenu */
-.contenu h3 {
-  color: #333;
-  margin-top: 15px;
-  margin-bottom: 10px;
-}
-
-/* Style pour les paragraphes */
-.contenu p {
-  line-height: 1.5;
-  margin-bottom: 15px;
-}
-
-/* Style pour les images */
-.contenu img {
-  max-width: 100%;
-  height: auto;
-  margin: 10px 0;
-  border-radius: 3px;
-}
-
-/* Style pour les liens */
-.contenu a {
-  color: #3366cc;
-  text-decoration: none;
-}
-
-.contenu a:hover {
-  text-decoration: underline;
-}
-
-/* Style pour l'overlay */
-.overlay {
-  position: relative;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.text {
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 5px;
-}
-
-/* Media Queries */
-
-/* Pour les écrans très petits (mobiles) - Revenir à l'affichage vertical */
-@media screen and (max-width: 768px) {
-  .titre-li {
-    width: 100%;
-    padding: 12px 10px;
-    font-size: 16px;
-  }
-  
-  .contenu {
-    position: static;
-    width: 100%;
-    left: 0;
-    border-left: none;
-    border-top: 1px solid #ddd;
-    padding: 10px;
-  }
-  
-  li.active {
-    min-height: auto;
-  }
-  
-  li.active .titre-li::after {
-    content: '\25BC'; /* Retour à flèche vers le bas */
-    transform: rotate(180deg);
-  }
-  
-  .contenu h3 {
-    font-size: 18px;
-  }
-  
-  .contenu p {
-    font-size: 14px;
-    line-height: 1.4;
-  }
-  
-  .text {
-    padding: 8px;
-    font-size: 14px;
-  }
-}
-
-/* Pour les tablettes */
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-  ul {
-    max-width: 95%;
-    margin: 0 auto;
-  }
-  
-  .titre-li {
-    width: 30%;
-  }
-  
-  .contenu {
-    left: 30%;
-    width: 70%;
-  }
-}
-
-/* Pour les grands écrans */
-@media screen and (min-width: 1025px) {
-  ul {
-    max-width: 90%;
-    margin: 0 auto;
-  }
-  
-  li {
-    margin-bottom: 15px;
-  }
-  
-  .titre-li {
-    padding: 18px 25px;
-    font-size: 20px;
-    width: 25%; /* Titres plus étroits sur grands écrans */
-  }
-  
-  .contenu {
-    left: 25%;
-    width: 75%;
-    padding: 20px 25px;
-  }
-  
-  .contenu h3 {
-    font-size: 22px;
-  }
-  
-  .contenu p {
-    font-size: 16px;
-    line-height: 1.6;
-  }
-}
-
-/* Pour l'impression */
-@media print {
-  li {
-    break-inside: avoid;
-    margin-bottom: 20px;
-    border: 1px solid #000;
-    min-height: auto;
-    position: relative;
-  }
-  
-  .titre-li {
-    background-color: #eee;
-    padding: 15px;
-    font-weight: bold;
-    width: 100%;
-  }
-  
-  .titre-li::after {
-    display: none;
-  }
-  
-  .contenu {
-    display: block !important; /* Afficher tout le contenu à l'impression */
-    position: static;
-    width: 100%;
-    left: 0;
-    padding: 15px;
-    border-left: none;
-    border-top: 1px solid #000;
-  }
-  
-  .overlay {
-    display: none; /* Cacher les overlays à l'impression */
-  }
-}
-
-
-    </style>
-</head>
-<body background="images/bg.jpg">
-    <ul>
-        <li>
-            <div class="titre-li">Instructions aux auteurs</div>
-            <div class="contenu">
-                <h3>LE BULLETIN MAROCAIN DE L'ONCOLOGIE</h3>
-                <p>Contenu des instructions...</p>
-            </div>
-        </li>
-        <li>
-            <div class="titre-li">Comités</div>
-            <div class="contenu">
-                <h3>COORDINATEURS DU GUIDE :</h3>
-                <p>Contenu des comités...</p>
-            </div>
-        </li>
-        <li>
-            <div class="titre-li">Numéros</div>
-            <div class="contenu">
-                <h3>Publications</h3>
-                <p>Liste des numéros disponibles...</p>
-            </div>
-        </li>
-    </ul>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-  // Sélectionner tous les éléments avec la classe 'titre-li'
-  const titres = document.querySelectorAll('.titre-li');
-  
-  // Ajouter un écouteur d'événement clic à chaque titre
-  titres.forEach(function(titre) {
-    titre.addEventListener('click', function() {
-      // Trouver l'élément parent (li)
-      const parentLi = this.parentElement;
-      const isActive = parentLi.classList.contains('active');
-      
-      // Fermer tous les éléments ouverts
-      const allLi = document.querySelectorAll('li');
-      allLi.forEach(function(li) {
-        li.classList.remove('active');
-      });
-      
-      // Si l'élément n'était pas déjà actif, l'ouvrir
-      // Sinon, il reste fermé (puisqu'on a déjà tout fermé)
-      if (!isActive) {
-        parentLi.classList.add('active');
-      }
-    });
-  });
-});
-    </script>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire d'Inscription</title>
+    <title>Annuaire des Spécialistes en Oncologie au Maroc</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
     <style>
-        /* Style général */
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
-        }
-        
-        /* Style du lien d'inscription */
-        #authForm {
-            display: inline-block;
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        
-        /* Style du modal (div popup) */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-        
-        /* Style du contenu du modal */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        
-        /* Style pour le titre du formulaire */
-        .form-title {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-        
-        /* Style pour les champs de saisie */
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 0;
             box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
         
-        /* Style pour le bouton de soumission */
-        .submit-btn {
-            background-color: #4CAF50;
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: #3498db;
             color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .map-container {
+            display: flex;
+            height: calc(100vh - 70px);
+            position: relative;
+        }
+        
+        #map {
+            flex: 2;
+            height: 100%;
+        }
+        
+        .info-panel {
+            flex: 1;
+            background-color: #f5f5f5;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-width: 300px;
+        }
+        
+        .location-selector {
+            padding: 10px 0;
+        }
+        
+        #city-selector {
             width: 100%;
-            margin-top: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
         }
         
-        .submit-btn:hover {
-            background-color: #45a049;
+        .specialist-info {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
-        /* Style pour le bouton de fermeture */
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
+        .specialist-info h3 {
+            color: #3498db;
+            margin-bottom: 8px;
         }
         
-        .close:hover {
-            color: black;
+        .specialist-info p {
+            margin: 5px 0;
+            color: #333;
+        }
+        
+        @media (max-width: 768px) {
+            .map-container {
+                flex-direction: column;
+            }
+            
+            #map {
+                height: 60vh;
+            }
+            
+            .info-panel {
+                height: 40vh;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Lien pour ouvrir le formulaire -->
-    <a href="#" id="authForm">Lien</a>
+    <header>
+        <h1>Annuaire des Spécialistes en Oncologie au Maroc</h1>
+    </header>
     
-    <!-- Modal (div popup) qui contient le formulaire -->
-    <div id="authModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 class="form-title">Créer un compte</h2>
-            <form id="registrationForm">
-                <div class="form-group">
-                    <label for="nom">Nom</label>
-                    <input type="text" id="nom" name="nom" required>
-                </div>
-                <div class="form-group">
-                    <label for="prenom">Prénom</label>
-                    <input type="text" id="prenom" name="prenom" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="telephone">Téléphone</label>
-                    <input type="tel" id="telephone" name="telephone" required>
-                </div>
-                <div class="form-group">
-                    <label for="adresse">Adresse</label>
-                    <input type="text" id="adresse" name="adresse" required>
-                </div>
-                <div class="form-group">
-                    <label for="motdepasse">Mot de passe</label>
-                    <input type="password" id="motdepasse" name="motdepasse" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirmation">Confirmer le mot de passe</label>
-                    <input type="password" id="confirmation" name="confirmation" required>
-                </div>
-                <button type="submit" class="submit-btn">S'inscrire</button>
-            </form>
+    <div class="map-container">
+        <div id="map"></div>
+        <div class="info-panel">
+            <div class="location-selector">
+                <select id="city-selector">
+                    <option value="all">Toutes les villes</option>
+                    <option value="casablanca" selected>Casablanca</option>
+                    <option value="rabat">Rabat</option>
+                    <option value="tanger">Tanger</option>
+                    <option value="marrakech">Marrakech</option>
+                    <option value="fes">Fès</option>
+                    <option value="agadir">Agadir</option>
+                    <option value="oujda">Oujda</option>
+                    <option value="errachidia">Errachidia</option>
+                    <option value="beni mellal">Beni Mellal</option>
+                    <option value="nador">Nador</option>
+                    <option value="laayoun">Laayoun</option>
+                    <option value="essaouira">Essaouira</option>
+                    <option value="elhouceima">Elhouceima</option>
+                    <option value="meknes">Meknes</option>
+                </select>
+            </div>
+            <div id="specialist-list">
+                <!-- Les informations des spécialistes seront ajoutées ici dynamiquement -->
+            </div>
         </div>
     </div>
 
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
     <script>
-        // Récupérer les éléments
-        const authLink = document.getElementById("authForm");
-        const modal = document.getElementById("authModal");
-        const closeBtn = document.querySelector(".close");
-        const form = document.getElementById("registrationForm");
+    // Initialisation de la carte
+    document.addEventListener('DOMContentLoaded', function() {
+        // Définition des coordonnées des villes
+        const cityCoordinates = {
+            'casablanca': [33.5731, -7.5898],
+            'rabat': [33.9716, -6.8498],
+            'tanger': [35.7595, -5.8340],
+            'marrakech': [31.6295, -8.0086],
+            'fes': [34.0209, -5.0078],
+            'agadir': [30.4278, -9.5981],
+            'oujda': [34.6725, -1.9006],
+            'errachidia': [31.6972, -4.4190],
+            'beni mellal': [32.3344, -6.3342],
+            'nador': [35.1745, -2.9333],
+            'laayoun': [24.8800, -13.1625],
+            'essaouira': [31.5139, -9.7650],
+            'elhouceima': [35.2494, -3.9278],
+            'meknes': [33.8938, -5.5550]
+        };
         
-        // Ouvrir le modal quand on clique sur le lien
-        authLink.addEventListener("click", function(e) {
-            e.preventDefault();
-            modal.style.display = "block";
-        });
+        // Initialisation de la carte
+        const map = L.map('map').setView([33.5731, -7.5898], 10); // Centré sur Casablanca par défaut
         
-        // Fermer le modal quand on clique sur le bouton de fermeture
-        closeBtn.addEventListener("click", function() {
-            modal.style.display = "none";
-        });
+        // Ajout de la couche de carte
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
         
-        // Fermer le modal quand on clique en dehors du contenu
-        window.addEventListener("click", function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+        // Base de données des spécialistes en oncologie
+        const annuaire = [
+            { id: 1, titre: "Pr", name: "Errihani Hassan", prenom: "Hassan", organization: "INO Rabat", city: "rabat", position: "Chef de service", promo: null },
+            { id: 2, titre: "Pr", name: "Mrabti Hindi", prenom: "Hindi", organization: "INO Rabat", city: "rabat", position: "Professeur", promo: 2 },
+            { id: 3, titre: "Pr", name: "Boutayeb", prenom: "Saber", organization: "INO Rabat", city: "rabat", position: "Professeur", promo: 2 },
+            { id: 4, titre: "Pr", name: "Elghissassi", prenom: "Ibrahim", organization: "INO Rabat", city: "rabat", position: "Professeur", promo: 2 },
+            { id: 5, titre: "Dr", name: "Abahssain", prenom: "Halima", organization: "INO Rabat", city: "rabat", position: "Spécialiste", promo: 4 },
+            { id: 6, titre: "Dr", name: "Berrada", prenom: "Narjiss", organization: "INO Rabat", city: "rabat", position: "Spécialiste", promo: 4 },
+            { id: 7, titre: "Dr", name: "Inrhaoun", prenom: "Hanane", organization: "INO Rabat", city: "rabat", position: "Spécialiste", promo: null },
+            { id: 8, titre: "Dr", name: "Naciri", prenom: "Sara", organization: "INO Rabat", city: "rabat", position: "Spécialiste", promo: 4 },
+            { id: 9, titre: "Dr", name: "Mokrim", prenom: "Maha", organization: "INO Rabat", city: "rabat", position: "Spécialiste", promo: 8 },
+            { id: 10, titre: "Dr", name: "Zakkouri", prenom: "Fatima Zohra", organization: "INO Rabat", city: "rabat", position: "Spécialiste", promo: 7 },
+            { id: 11, titre: "Dr", name: "Rifai", prenom: "Leila", organization: "INO Rabat", city: "rabat", position: "Oncogénéticienne", promo: null },
+            { id: 12, titre: "Dr", name: "Mazouz", prenom: "Aicha", organization: "Ministère santé, Rabat", city: "rabat", position: "Spécialiste", promo: 9 },
+            { id: 13, titre: "Pr", name: "Ichou", prenom: "Mohamed", organization: "Hopital militaire de rabat", city: "rabat", position: "Professeur", promo: null },
+            { id: 14, titre: "Pr", name: "Tanz", prenom: "Rachid", organization: "Hopital militaire de Rabat", city: "rabat", position: "Professeur", promo: 5 },
+            { id: 15, titre: "Pr", name: "Sbitti", prenom: "Yassir", organization: "Hopital militaire de Rabat", city: "rabat", position: "Professeur assistant", promo: 2 },
+            { id: 16, titre: "Pr", name: "Mahfoud", prenom: "Tarik", organization: "Hopital militaire de Rabat", city: "rabat", position: "Professeur assistant", promo: 5 },
+            { id: 17, titre: "Pr", name: "Alaoui Slimani", prenom: "Khawla", organization: "Hopital militaire de Rabat", city: "rabat", position: "Professeur assistant", promo: 4 },
+            { id: 18, titre: "Dr", name: "Khmamouche", prenom: "Mohamed reda", organization: "Hopital militaire de Rabat", city: "rabat", position: "Professeur assistant", promo: null },
+            { id: 19, titre: "Dr", name: "Debbagh", prenom: "Adil", organization: "Hopital militaire de Rabat", city: "rabat", position: "Spécialiste", promo: 7 },
+            { id: 20, titre: "Dr", name: "El Alami", prenom: "Iliass", organization: "Hopital militaire de Rabat", city: "rabat", position: "Spécialiste", promo: 10 },
+            { id: 21, titre: "Dr", name: "El Mhadi", prenom: "Choukri", organization: "Hopital militaire de Rabat", city: "rabat", position: "Spécialiste", promo: 11 },
+            { id: 22, titre: "Dr", name: "Namad", prenom: "Tariq", organization: "Hopital militaire de Rabat", city: "rabat", position: "Spécialiste", promo: 8 },
+            { id: 23, titre: "Dr", name: "Alaoui", prenom: "Lamia", organization: "Hopital militaire de Rabat", city: "rabat", position: "Spécialiste", promo: 11 },
+            { id: 24, titre: "Dr", name: "Mokhlis", prenom: "Mohamed Anouar", organization: "Hopital militaire de Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 25, titre: "Dr", name: "Akla", prenom: "Sarra", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 26, titre: "Dr", name: "Baldé", prenom: "Salif", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 27, titre: "Dr", name: "Ouguellit", prenom: "Siham", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 28, titre: "Dr", name: "Sow", prenom: "Mohamed Lamine", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 29, titre: "Dr", name: "Adrif", prenom: "Amine", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 30, titre: "Dr", name: "Daoudi", prenom: "Sara", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 31, titre: "Dr", name: "El Mouhtadi", prenom: "Salma", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 32, titre: "Dr", name: "Filali", prenom: "Nadia", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 33, titre: "Dr", name: "Ali Mhamat", prenom: "Mariam", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 34, titre: "Dr", name: "Messouna Alassane", prenom: "Mohamed", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 35, titre: "Dr", name: "Razine", prenom: "Sawssane", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 36, titre: "Dr", name: "Benchekroun", prenom: "Khadija", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 37, titre: "Dr", name: "Harrak", prenom: "Soukaina", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 38, titre: "Dr", name: "Lemsanes", prenom: "Siham", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 39, titre: "Dr", name: "Najem", prenom: "Salma", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 40, titre: "", name: "Gloria", prenom: "Akimana", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 41, titre: "", name: "Mesmoudi", prenom: "Bouthayna", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 42, titre: "", name: "El midaoui", prenom: "Lamya", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 43, titre: "", name: "Onana ngongo", prenom: "Remy", organization: "INO Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 44, titre: "Dr", name: "LAMINE", prenom: "Saida", organization: "Hopital militaire de Rabat", city: "rabat", position: "Résident", promo: null },
+            { id: 45, titre: "Pr", name: "Mellas", prenom: "Nawfel", organization: "CHU Hassan II de Fès", city: "fes", position: "Chef de service", promo: 3 },
+            { id: 46, titre: "Pr", name: "Arifi", prenom: "Samia", organization: "CHU Hassan II de Fès", city: "fes", position: "Professeur", promo: 4 },
+            { id: 47, titre: "Dr", name: "Ouafki", prenom: "Imane", organization: "CHU Fès", city: "fes", position: "Spécialiste", promo: 7 },
+            { id: 48, titre: "Pr", name: "Benbrahim", prenom: "Zineb", organization: "CHU Hassan II de Fès", city: "fes", position: "Professeur assistant", promo: 7 },
+            { id: 49, titre: "Dr", name: "Oualla", prenom: "Karima", organization: "CHU Fès", city: "fes", position: "Professeur assistant", promo: 8 },
+            { id: 50, titre: "Dr", name: "Amaadour", prenom: "Lamiae", organization: "CHU Hassan II de Fès", city: "fes", position: "Spécialiste", promo: 9 },
+            { id: 51, titre: "Dr", name: "Ouahbi", prenom: "Hajar", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 52, titre: "Dr", name: "Bedoudou", prenom: "Hanae", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 53, titre: "Dr", name: "Abouljaoud", prenom: "Bouhra", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 54, titre: "Dr", name: "Azegrar", prenom: "Meryem", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 55, titre: "Dr", name: "Benhami", prenom: "Mariam", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 56, titre: "Dr", name: "Hamidou", prenom: "Dioba Doumbia", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 57, titre: "Dr", name: "Zouiten", prenom: "Othmane", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 58, titre: "Dr", name: "Messoudi", prenom: "Kawthar", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 59, titre: "Dr", name: "Ahalli", prenom: "Ibtihal", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 60, titre: "Dr", name: "Boujarnija", prenom: "Raihani", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 61, titre: "Dr", name: "Acharfi", prenom: "Nissrine", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 62, titre: "Dr", name: "Hajjane", prenom: "Loubna", organization: "CHU Hassan II de Fès/Casa", city: "fes", position: "Résident", promo: null },
+            { id: 63, titre: "Dr", name: "Berrad", prenom: "Soumia", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 64, titre: "Dr", name: "Erraichi", prenom: "Hayat", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 65, titre: "Dr", name: "Hazzaz", prenom: "Reda", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 66, titre: "Dr", name: "El ouai", prenom: "Yassine", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 67, titre: "Dr", name: "Darif", prenom: "Khadija", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 68, titre: "Dr", name: "Nouiakh", prenom: "Lamiae", organization: "CHU Hassan II de Fès", city: "fes", position: "Résident", promo: null },
+            { id: 69, titre: "Pr", name: "Belbaraka", prenom: "Rhizlane", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Professeur", promo: 4 },
+            { id: 70, titre: "Dr", name: "Mohtaram", prenom: "Amina", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Spécialiste", promo: 7 },
+            { id: 71, titre: "Dr", name: "Layachi", prenom: "mohamed", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Spécialiste", promo: 8 },
+            { id: 72, titre: "Dr", name: "El Ouafi", prenom: "Hicham", organization: "Centre d'oncologie de Marrakech", city: "marrakech", position: "Spécialiste", promo: 9 }
+        ];
+        
+        // Ajouter les coordonnées géographiques pour chaque spécialiste
+        annuaire.forEach(specialist => {
+            // Attribuer des coordonnées en fonction de la ville
+            const cityKey = specialist.city.toLowerCase();
+            if (cityCoordinates[cityKey]) {
+                specialist.lat = cityCoordinates[cityKey][0];
+                specialist.lng = cityCoordinates[cityKey][1];
+            } else {
+                // Par défaut, utiliser les coordonnées du centre du Maroc
+                specialist.lat = 31.7917;
+                specialist.lng = -7.0926;
             }
         });
         
-        // Gérer la soumission du formulaire
-        form.addEventListener("submit", function(e) {
-            e.preventDefault();
+        // Création d'un objet pour stocker les marqueurs par ville
+        const markersByCity = {};
+        
+        // Création des marqueurs et des popups
+        annuaire.forEach(specialist => {
+            if (specialist.name && specialist.lat && specialist.lng) {
+                const marker = L.marker([specialist.lat, specialist.lng])
+                    .bindPopup(`<b>${specialist.titre} ${specialist.name}</b><br>
+                                <strong>Organisation:</strong> ${specialist.organization}<br>
+                                <strong>Position:</strong> ${specialist.position}`);
+                
+                // Organiser les marqueurs par ville
+                if (!markersByCity[specialist.city]) {
+                    markersByCity[specialist.city] = [];
+                }
+                markersByCity[specialist.city].push(marker);
+                
+                // Ajouter à la carte par défaut si c'est à Casablanca
+                if (specialist.city === "casablanca") {
+                    marker.addTo(map);
+                }
+            }
+        });
+        
+        // Mettre à jour le panneau d'information en fonction de la ville sélectionnée
+        function updateInfoPanel(city) {
+            // Trouver le conteneur pour les spécialistes
+            const specialistList = document.getElementById('specialist-list');
+            if (!specialistList) return;
             
-            // Vérifier que les mots de passe correspondent
-            const password = document.getElementById("motdepasse").value;
-            const confirmation = document.getElementById("confirmation").value;
+            // Vider le panneau d'information
+            specialistList.innerHTML = '';
             
-            if (password !== confirmation) {
-                alert("Les mots de passe ne correspondent pas !");
-                return;
+            // Filtrer les spécialistes par ville ou afficher tous
+            const filteredSpecialists = city === 'all' 
+                ? annuaire.filter(spec => spec.name) // Exclure les entrées vides
+                : annuaire.filter(spec => spec.city === city && spec.name);
+            
+            // Ajouter les informations des spécialistes
+            filteredSpecialists.forEach(specialist => {
+                const specialistDiv = document.createElement('div');
+                specialistDiv.className = 'specialist-info';
+                const displayName = specialist.titre ? 
+                    `${specialist.titre} ${specialist.prenom || ''} ${specialist.name || ''}`.trim() : 
+                    `${specialist.prenom || ''} ${specialist.name || ''}`.trim();
+                
+                specialistDiv.innerHTML = `
+                    <h3>${displayName}</h3>
+                    <p><strong>Organisation :</strong> ${specialist.organization || ''}</p>
+                    <p><strong>Position :</strong> ${specialist.position || ''}</p>
+                    ${specialist.promo ? `<p><strong>Promotion :</strong> ${specialist.promo}</p>` : ''}
+                `;
+                specialistList.appendChild(specialistDiv);
+            });
+        }
+        
+        // Gestion du changement de ville
+        document.getElementById('city-selector').addEventListener('change', function(e) {
+            const selectedCity = e.target.value;
+            
+            // Supprimer tous les marqueurs de la carte
+            Object.values(markersByCity).flat().forEach(marker => {
+                map.removeLayer(marker);
+            });
+            
+            // Ajouter les marqueurs de la ville sélectionnée ou tous les marqueurs
+            if (selectedCity === 'all') {
+                Object.values(markersByCity).flat().forEach(marker => {
+                    marker.addTo(map);
+                });
+                map.setView([31.7917, -7.0926], 6); // Vue centrée sur le Maroc
+            } else if (markersByCity[selectedCity]) {
+                markersByCity[selectedCity].forEach(marker => {
+                    marker.addTo(map);
+                });
+                
+                if (cityCoordinates[selectedCity]) {
+                    map.setView(cityCoordinates[selectedCity], 13);
+                }
             }
             
-            // Ici vous pourriez ajouter le code pour envoyer les données à un serveur
-            alert("Formulaire soumis avec succès !");
-            modal.style.display = "none";
-            form.reset();
+            // Mettre à jour le panneau d'information
+            updateInfoPanel(selectedCity);
         });
+        
+        // Initialisation avec Casablanca (puisque c'est l'option selected dans HTML)
+        setTimeout(() => {
+            // Simulation du changement vers Casablanca pour initialiser correctement
+            const event = new Event('change');
+            document.getElementById('city-selector').dispatchEvent(event);
+        }, 100);
+    });
+    
+    // Fonction pour basculer le menu sur mobile
+    function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "flex") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "flex";
+        }
+    }
     </script>
 </body>
 </html>
