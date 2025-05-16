@@ -272,9 +272,9 @@
                   </div>
                 </li>
                 <div class="dropdown-content">
-                  <a href="#comites">➤ COMITÉS</a>
-                  <a href="#instructions">➤ INSTRUCTIONS AUX AUTEURS</a>
-                  <a href="#numeros">➤ NUMÉROS</a>
+                  <a href="publication.html?part_ind=comites">➤ COMITÉS</a>
+                  <a  href="publication.html?part_ind=instructions">➤ INSTRUCTIONS AUX AUTEURS</a>
+                  <a  href="publication.html?part_ind=numeros">➤ NUMÉROS</a>
                 </div>
               </div>
               <hr style="background-color: rgb(0 0 0); height: 50%" />
@@ -387,9 +387,9 @@
                   </div>
                 </li>
                 <div class="dropdown-content">
-                 <a href="#comites">➤ COMITÉS</a>
-                  <a href="#instructions">➤ INSTRUCTIONS AUX AUTEURS</a>
-                  <a href="#numeros">➤ NUMÉROS</a>
+                 <a href="publication.html?part_ind=comites">➤ COMITÉS</a>
+                  <a href="publication.html?part_ind=instructions">➤ INSTRUCTIONS AUX AUTEURS</a>
+                  <a href="publication.html?part_ind=numeros">➤ NUMÉROS</a>
                 </div>
               </div>
 
@@ -468,9 +468,9 @@
           <!-- Menu latéral -->
           <div class="menu-sidebar">
             <ul>
-              <li><a href="#instructions" class="menu-link active" data-target="instructions">INSTRUCTIONS AUX AUTEURS</a></li>
-              <li><a href="#comites" class="menu-link" data-target="comites">COMITÉS</a></li>
-              <li><a href="#numeros" class="menu-link" data-target="numeros">NUMÉROS</a></li>
+              <li><a href="?part_ind=instructions" class="menu-link active" data-target="instructions">INSTRUCTIONS AUX AUTEURS</a></li>
+              <li><a href="?part_ind=comites" class="menu-link" data-target="comites">COMITÉS</a></li>
+              <li><a href="?part_ind=numeros" class="menu-link" data-target="numeros">NUMÉROS</a></li>
             </ul>
           </div>
           
@@ -593,44 +593,71 @@
       </div>
     
       <script>
-        document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function() {
   // Récupérer tous les liens du menu
   const menuLinks = document.querySelectorAll('.menu-link');
   
+  // Fonction pour mettre à jour l'URL avec un paramètre de requête
+  function updateURLParameter(param, value) {
+    const url = new URL(window.location.href);
+    url.searchParams.set(param, value);
+    window.history.pushState({}, '', url.toString());
+  }
+  
+  // Fonction pour obtenir un paramètre de l'URL
+  function getURLParameter(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+  
+  // Fonction pour activer une section spécifique
+  function activateSection(targetId) {
+    // Supprimer la classe 'active' de tous les liens
+    menuLinks.forEach(link => link.classList.remove('active'));
+    
+    // Ajouter la classe 'active' au lien correspondant
+    const targetLink = document.querySelector(`.menu-link[data-target="${targetId}"]`);
+    if (targetLink) {
+      targetLink.classList.add('active');
+    }
+    
+    // Masquer toutes les sections de contenu
+    const contentSections = document.querySelectorAll('.content-section');
+    contentSections.forEach(section => section.classList.remove('active'));
+    
+    // Afficher la section cible
+    const targetSection = document.getElementById(targetId);
+    if (targetSection) {
+      targetSection.classList.add('active');
+    }
+  }
+  
   // Ajouter un écouteur d'événement pour chaque lien
   menuLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          // Supprimer la classe 'active' de tous les liens
-          menuLinks.forEach(l => l.classList.remove('active'));
-          
-          // Ajouter la classe 'active' au lien cliqué
-          this.classList.add('active');
-          
-          // Récupérer la cible
-          const target = this.getAttribute('data-target');
-          
-          // Masquer toutes les sections de contenu
-          const contentSections = document.querySelectorAll('.content-section');
-          contentSections.forEach(section => section.classList.remove('active'));
-          
-          // Afficher la section cible
-          document.getElementById(target).classList.add('active');
-          
-          // Mettre à jour l'URL avec un fragment
-          window.location.hash = target;
-      });
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Récupérer la cible
+      const target = this.getAttribute('data-target');
+      
+      // Activer la section correspondante
+      activateSection(target);
+      
+      // Mettre à jour l'URL avec le paramètre de requête
+      updateURLParameter('part_ind', target);
+    });
   });
   
-  // Vérifier si l'URL contient un fragment et afficher la section correspondante
-  const hash = window.location.hash.substring(1);
-  if (hash) {
-      // Trouver le lien correspondant au fragment et simuler un clic
-      const targetLink = document.querySelector(`.menu-link[data-target="${hash}"]`);
-      if (targetLink) {
-          targetLink.click();
-      }
+  // Vérifier si l'URL contient un paramètre et afficher la section correspondante
+  const sectionParam = getURLParameter('part_ind');
+  if (sectionParam) {
+    // Activer la section correspondante
+    activateSection(sectionParam);
+  } else {
+    // Si aucun paramètre n'est spécifié, afficher la première section par défaut
+    const firstTarget = menuLinks[0].getAttribute('data-target');
+    activateSection(firstTarget);
+    updateURLParameter('part_ind', firstTarget);
   }
 });
       </script>
