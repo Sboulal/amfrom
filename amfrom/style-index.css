@@ -1377,10 +1377,10 @@ li.active .titre-li::after {
 }
 .tee {
   color: #fff;
-  /* justify-content: center; */
+  justify-content: center;
   background: white;
   border: 1px solid rgba(97, 94, 94, 0.5);
-  /* display: flex; */
+  display: flex;
   padding: 1.2rem;
   width: 25%;
 
@@ -1402,6 +1402,7 @@ li.active .titre-li::after {
   height: 35px;
 }
 .lien-pdf h4 {
+
   font-family: "OptimaLtNormal";
   color: red;
 }
@@ -1761,7 +1762,7 @@ li.active .titre-li::after {
         justify-content: center;
         align-items: center;
         width: 100%;
-        margin-top: -100px;
+        /* margin-top: -100px; */
         background:white; 
       }
       .img_prs img
@@ -1851,7 +1852,6 @@ li.active .titre-li::after {
         justify-content: center;
         align-items: center;
         width: 100%;
-        margin-top: -100px;
         background:white; 
       }
       .img_prs img
