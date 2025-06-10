@@ -1126,25 +1126,127 @@ li.active .titre-li::after {
     align-items: center;
    
 }
-.titreved
-{
+.titreved {
   display: flex;
-  flex-direction: wrap;
-  /* justify-content: space-evenly; */
+  flex-wrap: wrap; /* Correction: flex-direction: wrap n'existe pas */
+  justify-content: space-between;
   padding-top: 15px;
   gap: 20px;
+  margin-bottom: 100px;
 }
 
-.img-test img
-{
-    width: 100%;
+.driv-test {
+  flex: 1;
+  min-width: 280px; /* Largeur minimale pour chaque module */
+  max-width: 48%; /* Maximum 2 colonnes sur desktop */
+}
+
+.img-test {
+  margin-bottom: 15px;
+}
+
+.img-test img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 5px;
+  transition: transform 0.3s ease;
+}
+
+
+
+.titre-drive h4 {
+  margin: 0;
+  padding: 10px;
+  font-size: 1.1em;
+  line-height: 1.4;
+}
+
+.titre-drive span {
+  font-size: 0.9em;
+  color: white;
+  font-weight: normal;
+}
+
+/* Media Queries */
+
+/* Tablettes en mode paysage et petits écrans desktop */
+@media screen and (max-width: 1024px) {
+  .titreved {
+    gap: 15px;
+    margin-bottom: 80px;
+  }
+  
+  .driv-test {
+    max-width: 48%;
+    min-width: 250px;
+  }
+  
+  .titre-drive h4 {
+    font-size: 1em;
+  }
+}
+
+/* Tablettes en mode portrait */
+@media screen and (max-width: 768px) {
+  .titreved {
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 10px;
+    margin-bottom: 60px;
+  }
+  
+  .driv-test {
     max-width: 100%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    border-radius: 5px;
+    min-width: auto;
+  }
+  
+  .titre-drive h4 {
+    font-size: 1.2em;
+    text-align: center;
+  }
 }
 
+/* Smartphones */
+@media screen and (max-width: 480px) {
+  .titreved {
+    gap: 25px;
+    padding-top: 5px;
+    margin-bottom: 40px;
+  }
+  
+  .titre-drive {
+    padding: 0 10px;
+  }
+  
+  .titre-drive h4 {
+    font-size: 1.1em;
+    padding: 15px 5px;
+    line-height: 1.3;
+  }
+  
+  .titre-drive span {
+    font-size: 0.85em;
+  }
+}
+
+/* Très petits écrans */
+@media screen and (max-width: 320px) {
+  .titreved {
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .titre-drive h4 {
+    font-size: 1em;
+    padding: 10px 5px;
+  }
+  
+  .titre-drive span {
+    font-size: 0.8em;
+  }
+}
 .titre-drive
 {
   display: flex;
