@@ -2353,10 +2353,6 @@ li.active .titre-li::after {
     margin: 0 5px;
   }
   
-  .mySlides img {
-    height: 250px;
-    object-fit: cover;
-  }
   
   .container-photos {
     grid-template-columns: 1fr;
@@ -2496,8 +2492,7 @@ li.active .titre-li::after {
   }
   
   .mySlides img {
-    height: 250px !important;
-    object-fit: cover;
+    
     width: 100%;
   }
   
