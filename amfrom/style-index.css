@@ -2679,8 +2679,8 @@ li.active .titre-li::after {
   
   /* Profile images */
   .img_prs img {
-    width: 80%;
-    height: auto;
+    width: 95%;
+    height: 95%;
   }
   
   /* Actualité images */
